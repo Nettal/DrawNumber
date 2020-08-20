@@ -4,6 +4,7 @@ import java.awt.Component;
 import java.awt.Font;
 
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -13,9 +14,10 @@ public class SettingsGUI extends JFrame{
 	
 	Event event = new Event();
 	JButton reSetButton = new JButton("重置");
-	JButton reSetButton1 = new JButton("null");
-	JButton reSetButton2 = new JButton("null");
-	JButton reSetButton3 = new JButton("null");
+	JButton reSetButton1 = new JButton("");
+	JButton reSetButton2 = new JButton("");//
+	JButton reSetButton3 = new JButton("");
+	static JCheckBox jCheckBox = new JCheckBox("允许重复(及时生效)", Main.config.repeatable);
 	JLabel about = new JLabel("关于");
 
 	public SettingsGUI() {
@@ -34,15 +36,21 @@ public class SettingsGUI extends JFrame{
 		reSetButton.setActionCommand("reset");
 		reSetButton.addActionListener(event);
 		reSetButton.setBounds(10, 10, 200, 50);
+		reSetButton.setFont(new Font("Dialog",1,20));
 		jp.add(reSetButton);
 		reSetButton1.setActionCommand("reset1");
 		reSetButton1.addActionListener(event);
 		reSetButton1.setBounds(220, 10, 200, 50);
 		jp.add(reSetButton1);
-		reSetButton2.setActionCommand("reset2");
-		reSetButton2.addActionListener(event);
-		reSetButton2.setBounds(10, 70, 200, 50);
-		jp.add(reSetButton2);
+//		reSetButton2.setActionCommand("reset2");
+//		reSetButton2.addActionListener(event);
+//		reSetButton2.setBounds(10, 70, 200, 50);
+//		jp.add(reSetButton2);
+		jCheckBox.setActionCommand(null);
+		jCheckBox.addItemListener(Main.event);
+		jCheckBox.setBounds(10, 70, 200, 50);
+		jCheckBox.setFont(new Font("Dialog",1,18));
+		jp.add(jCheckBox);
 		reSetButton3.setActionCommand("reset3");
 		reSetButton3.addActionListener(event);
 		reSetButton3.setBounds(220, 70, 200, 50);
@@ -53,5 +61,4 @@ public class SettingsGUI extends JFrame{
 		jp.add(about);
 		return jp;
 	}
-
 }

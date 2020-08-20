@@ -4,6 +4,7 @@ import java.awt.Component;
 import java.awt.Font;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -21,7 +22,7 @@ public class DrawGUI extends JFrame{
 	int posy = 10;
 	int width = 600;
 	int height = 450;
-
+	int count = 0;
 	
 	JButton settingButton = new JButton("设置");
 	JButton drawButton = new JButton("抽号");
@@ -91,15 +92,25 @@ public class DrawGUI extends JFrame{
 
 	public void setText(Integer value) {
 		if (value==null) {
-			jLabel.setText("已抽完！");
-			division = 8;
-			jLabel.setFont(new Font("Dialog",1,(int) (height/division)));
+			if (count<1) {
+				jLabel.setText("已抽完！");
+				division = 8;
+				jLabel.setFont(new Font("Dialog",1,(int) (height/division)));
+				count++;
+			} else {
+				jLabel.setText("即将进行新一轮");
+				count = 0;
+				division = 13;
+				jLabel.setFont(new Font("Dialog",1,(int) (height/division)));
+				Main.array = new Array(Main.config.minValue, Main.config.maxValue);
+				Main.event.arrayList = new ArrayList<String>();
+			}
 		} else {
 			if (getlength(value)==2) {
 				division = 3.5;
 			} else if (getlength(value)==3) {
 				division = 4;
-			}{
+			}else{
 				division = getlength(value);
 			}
 			
@@ -109,19 +120,19 @@ public class DrawGUI extends JFrame{
 	}	
 	
 	private int getlength (int num){
-		int count=0;
+		int length=0;
 		if (num <= 9) {
-			count++;
+			length++;
 			}
 		if (num==0) {
-			count++;
+			length++;
 		}
 		num = Math.abs(num);
 		while(num>=1) {
 			num/=10;
-			count++;
+			length++;
 		}
-		return count;
+		return length;
 	}
 	
 }

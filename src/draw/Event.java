@@ -2,6 +2,8 @@ package draw;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.awt.event.WindowStateListener;
@@ -10,11 +12,13 @@ import java.util.ArrayList;
 
 import javax.swing.SwingUtilities;
 
-public class Event implements ActionListener,WindowListener,WindowStateListener{
+public class Event implements ActionListener,WindowListener,WindowStateListener, ItemListener{
 	
 	int windowState = 0;
+	Integer getInteger;
 	
 	ArrayList<String> arrayList = new ArrayList<String>();
+	ArrayList<String> arrayList_Rep = new ArrayList<String>();
 	public Event() {
 		// TODO 自动生成的构造函数存根
 	}
@@ -23,7 +27,6 @@ public class Event implements ActionListener,WindowListener,WindowStateListener{
 	public void actionPerformed(ActionEvent e) {
 		
 		if (e.getActionCommand().equals("settings")) {
-	//	System.out.println("settings");
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override
 			public void run() {
@@ -32,8 +35,11 @@ public class Event implements ActionListener,WindowListener,WindowStateListener{
 		});
 		}
 		if(e.getActionCommand().equals("draw")) {
-		//	System.out.println("draw");
-			onDraw();
+			if (Main.config.repeatable) {
+				onDraw_Rep();
+			}else {
+				onDraw();
+			}
 		}
 		if (e.getActionCommand().equals("reset")) {
 			//delete file
@@ -41,7 +47,7 @@ public class Event implements ActionListener,WindowListener,WindowStateListener{
 			System.exit(0);
 //			Runtime.getRuntime().addShutdownHook(new Thread() {
 //				public void run() {
-//					String restartCmdString="javaw -jar "+System.getProperty("java.class.path");
+//					String restartCmdString="java -jar "+System.getProperty("java.class.path");
 //					
 //				}
 //			});
@@ -50,13 +56,22 @@ public class Event implements ActionListener,WindowListener,WindowStateListener{
 	}
 
 	private void onDraw() {
-		Integer getInteger = Main.array.getInt_without_index();
+			getInteger = Main.array.getInt_without_index();	
 			if (!(getInteger == null)) {
 				arrayList.add(0,(arrayList.size()+1)+":"+ getInteger.toString());
 				Main.drawGUI.setJScrollPaneContent(arrayList.toArray(new String[arrayList.size()]));
 			}
 			Main.drawGUI.setText(getInteger);
 	}
+	
+	private void onDraw_Rep() {
+		getInteger = Main.array_Rep.getInt_without_index_Rep();
+		if (!(getInteger == null)) {
+			arrayList_Rep.add(0,(arrayList_Rep.size()+1)+":"+ getInteger.toString());
+			Main.drawGUI.setJScrollPaneContent(arrayList_Rep.toArray(new String[arrayList_Rep.size()]));
+		}
+		Main.drawGUI.setText(getInteger);
+}
 
 	@Override
 	public void windowOpened(WindowEvent e) {
@@ -111,6 +126,17 @@ public class Event implements ActionListener,WindowListener,WindowStateListener{
 	public void windowStateChanged(WindowEvent e) {
 		// TODO 自动生成的方法存根
 		windowState = e.getNewState();
+	}
+
+	@Override
+	public void itemStateChanged(ItemEvent e) {
+		// TODO 自动生成的方法存根
+		if (SettingsGUI.jCheckBox.isSelected()) {
+			Main.config.repeatable = true;
+		}else {
+			Main.config.repeatable = false;	
+		}
+		Main.loadNum();
 	}
 	
 }
