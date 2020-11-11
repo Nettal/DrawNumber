@@ -33,11 +33,13 @@ public class ObjectLoader {
 		} else {
 			System.out.println("Config does not exist,trying to create a new config at:"+file.getAbsolutePath());
 			Config tempConfig = null;
+			Main.isMessageOnTop = false;
 			int[] value = Options.getRange();
 			tempConfig = new Config();
 			tempConfig.minValue = value[0];
 			tempConfig.maxValue = value[1];
 			tempConfig.repeatable = Options.repeatable();
+			Main.isMessageOnTop = true;
 			tempConfig.shape = new Rectangle(100, 100, 600, 450);
 			saveConfig(tempConfig);
 			isLoadSuccess = true;

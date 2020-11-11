@@ -12,7 +12,7 @@ import javax.swing.JPanel;
 public class SettingsGUI extends JFrame{
 	private static final long serialVersionUID = -5209828332008414779L;
 	
-	Event event = new Event();
+	Event event = Main.event;
 	JButton reSetButton = new JButton("÷ÿ÷√");
 	JButton reSetButton1 = new JButton("");
 	JButton reSetButton2 = new JButton("");//
@@ -22,12 +22,12 @@ public class SettingsGUI extends JFrame{
 
 	public SettingsGUI() {
 		super("…Ë÷√");
+		this.setBounds(Main.drawGUI.getBounds().x, Main.drawGUI.getBounds().y ,440 , 460);
 		this.setResizable(false);
 		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		this.setVisible(true);
 		this.setAlwaysOnTop(true);
 		this.getContentPane().add(addComponent());
-		this.setBounds(Main.drawGUI.getBounds().x, Main.drawGUI.getBounds().y ,440 , 460);
 	}
 
 	private Component addComponent() {
