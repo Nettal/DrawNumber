@@ -32,7 +32,7 @@ public class DrawGUI extends JFrame {
 	JScrollPane jScrollPane = null;
 	
 	public DrawGUI() {
-		super(String.format("抽号 [%d,%d] Version 1.1.1", Main.config.minValue , Main.config.maxValue));
+		super(String.format("抽号:[%d,%d]  @Version 1.1.2", Main.config.minValue , Main.config.maxValue));
 		jScrollPane = new JScrollPane(Main.jList);
 		posx = Main.config.shape.x;
 		posy = Main.config.shape.y;
@@ -104,6 +104,10 @@ public class DrawGUI extends JFrame {
 		jScrollPane.setBounds(width/10+width/2,height/20 , width/3, height-height/5);
 	}
 	
+	public void clear_list() {
+				Main.event.arrayList = new  ArrayList<String>();
+				Main.Currect_jList = new JList<String>() ;
+	}
 
 	public void setText(Integer value , Color color) {
 		if (value==null) {
@@ -111,16 +115,15 @@ public class DrawGUI extends JFrame {
 				jLabel.setText("已抽完！");
 				division = 8;
 				jLabel.setFont(new Font("Dialog",1,(int) (height/division)));
-				jLabel.setForeground(Color.RED);
-				count++;
+				jLabel.setForeground(Color.RED);				count++;
 			} else {
 				jLabel.setText("即将进行新一轮");
 				jLabel.setForeground(Color.RED);
 				count = 0;
 				division = 13;
 				jLabel.setFont(new Font("Dialog",1,(int) (height/division)));
+				clear_list();
 				Main.loadNum();
-				Main.event.arrayList = new ArrayList<String>();
 			}
 		} else {
 			if (getlength(value)==2) {

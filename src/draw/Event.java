@@ -23,7 +23,7 @@ public class Event implements ActionListener,WindowListener,WindowStateListener,
 	int windowState = 0;
 	Integer getInteger;
 	
-	ArrayList<String> arrayList = new ArrayList<String>();
+	public ArrayList<String> arrayList = new ArrayList<String>();
 	ArrayList<String> arrayList_Rep = new ArrayList<String>();
 	public Event() {
 		// TODO 自动生成的构造函数存根
@@ -132,9 +132,15 @@ public class Event implements ActionListener,WindowListener,WindowStateListener,
 		windowState = e.getNewState();
 	}
 
+
+
 	@Override
 	public void itemStateChanged(ItemEvent e) {
-		// TODO 自动生成的方法存根
+		set_Wrapper();
+		set_Wrapper();
+	}
+	
+	private void setRep() {
 		if (SettingsGUI.jCheckBox.isSelected()) {
 			Main.config.repeatable = true;
 		}else {
@@ -142,6 +148,29 @@ public class Event implements ActionListener,WindowListener,WindowStateListener,
 		}
 		new ObjectLoader("DATA").saveConfig(Main.config);
 		Main.loadNum();
+	}
+	
+	boolean isFirst = true;
+	long actionTime = 0;
+	private void set_Wrapper() {
+//		System.err.println("Wrapper!");
+		if (actionTime == 0) {
+			actionTime = System.currentTimeMillis();
+		}
+		if(isFirst){
+			new Thread(new Runnable() {
+				@Override
+				public void run() {
+					setRep();
+				}
+			}).start();
+//			System.err.println("DEBUG!");
+			isFirst = false;
+		}
+		if (actionTime + 100 <= System.currentTimeMillis()) {
+			isFirst = true;
+			actionTime = 0;
+		}
 	}
 
 	@Override
@@ -167,11 +196,13 @@ public class Event implements ActionListener,WindowListener,WindowStateListener,
 		// TODO 自动生成的方法存根
 		int index = Main.Currect_jList.getSelectedIndex();
 		if (Main.config.repeatable) {
+			if (arrayList_Rep.isEmpty()) return;
 			//截取字符串
 			String cutStr = arrayList_Rep.get(index);
 			Main.drawGUI.setText(Integer.parseInt(cutStr.substring(cutStr.indexOf(":")+1, cutStr.length())) , Color.BLUE);
 
 		}else {
+			if (arrayList.isEmpty()) return;
 			//截取字符串
 			String cutStr = arrayList.get(index);
 			Main.drawGUI.setText(Integer.parseInt(cutStr.substring(cutStr.indexOf(":")+1, cutStr.length())) , Color.BLUE);

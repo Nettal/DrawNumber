@@ -36,7 +36,7 @@ public class Max_min {
 			}
 
 			if (rang[0]>rang[1]) {
-				System.err.println("大小值有误，已纠正");
+				System.err.println("Max_min: 大小值有误，已纠正");
 				int temp = rang[1];
 				rang[1] = rang[0];
 				rang[0] = temp;

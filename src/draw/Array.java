@@ -15,12 +15,12 @@ public class Array extends ArrayList<Integer> {
 //		this.maxValue = maxValue;
 		this.minValue = minValue;
 		int size = maxValue-minValue+1;
-		System.out.println("The size of array to load is:"+size);
+		System.out.println("Array: The size of array to load is:"+size);
 		for(int i=1;i<=size;i++){
 			this.add(Integer.valueOf(i));
 		//	System.err.println(i);
 		}
-		System.out.println("Load array done!");
+		System.out.println("Array: Load array done!");
 		try {
 			get((int) (this.size()*rand.nextDouble()));
 		} catch (Exception e) {
@@ -34,7 +34,7 @@ public class Array extends ArrayList<Integer> {
 			this.remove(index);
 			return temp+minValue-1;
 		} catch (Exception e) {
-			System.out.println(e.toString());
+			System.out.println("Array: "+e.toString());
 			return null;
 		}
 
@@ -49,7 +49,7 @@ public class Array extends ArrayList<Integer> {
 			int temp = this.get(index);
 			return temp+minValue-1;
 		} catch (Exception e) {
-			System.out.println(e.toString());
+			System.out.println("Array: "+e.toString());
 			return null;
 		}
 	}

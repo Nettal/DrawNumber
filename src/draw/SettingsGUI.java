@@ -46,7 +46,7 @@ public class SettingsGUI extends JFrame{
 //		reSetButton2.addActionListener(event);
 //		reSetButton2.setBounds(10, 70, 200, 50);
 //		jp.add(reSetButton2);
-		jCheckBox.setActionCommand(null);
+		jCheckBox.setActionCommand("checkbox");
 		jCheckBox.addItemListener(Main.event);
 		jCheckBox.setBounds(10, 70, 200, 50);
 		jCheckBox.setFont(new Font("Dialog",1,18));

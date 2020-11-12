@@ -31,7 +31,7 @@ public class ObjectLoader {
 			}
 			
 		} else {
-			System.out.println("Config does not exist,trying to create a new config at:"+file.getAbsolutePath());
+			System.out.println("ObjectLoader: Config does not exist,trying to create a new config at:"+file.getAbsolutePath());
 			Config tempConfig = null;
 			Main.isMessageOnTop = false;
 			int[] value = Options.getRange();
@@ -61,37 +61,37 @@ public class ObjectLoader {
 		String PATH = file.getAbsolutePath();
 	    FileInputStream fileInputStream = null;
 	    ObjectInputStream objectInputStream = null;
-		System.out.println("Config PATH:"+PATH);
+		System.out.println("ObjectLoader: Config PATH:"+PATH);
 		try {
-		System.out.println("Trying to load config at:"+PATH);
+		System.out.println("ObjectLoader: Trying to load config at:"+PATH);
 		Config loadConfig = null;
 		fileInputStream = new FileInputStream(file);
 		objectInputStream = new ObjectInputStream(fileInputStream);
 		loadConfig = (Config)objectInputStream.readObject();
 		objectInputStream.close();
 		fileInputStream.close();
-		System.out.println("Loaded config!");
+		System.out.println("ObjectLoader: Loaded config!");
 		return loadConfig;
 		} catch (Exception e) {
-			System.err.println("Fail to load config at:"+PATH);
+			System.err.println("ObjectLoader: Fail to load config at:"+PATH);
 			try {
 				fileInputStream.close();
 				objectInputStream.close();
 			} catch (IOException e1) {
-				System.err.println("Fail to close stream");
+				System.err.println("ObjectLoader: Fail to close stream");
 				e1.printStackTrace();
 			}
-			System.out.println("Trying to delete at:"+PATH);
+			System.out.println("ObjectLoader: Trying to delete at:"+PATH);
 				try {
 					file.delete();
 					} catch (Exception e2) {
-					System.err.println("Fail to delete:"+PATH);
+					System.err.println("ObjectLoader: Fail to delete:"+PATH);
 					e2.printStackTrace();
 				}
 			return null;
 		}
 		}else {
-			System.err.println(file.getAbsolutePath()+": does not exist");
+			System.err.println("ObjectLoader: " + file.getAbsolutePath()+": does not exist");
 			return null;
 		}
 	}
@@ -108,16 +108,16 @@ public class ObjectLoader {
 		}
 			FileOutputStream fileOutputStream = null;
 			ObjectOutputStream objectOutputStream = null;
-			System.out.println("Saving config at:"+PATH);
+			System.out.println("ObjectLoader: Saving config at:"+PATH);
 			fileOutputStream = new FileOutputStream(file);
 			objectOutputStream = new ObjectOutputStream(fileOutputStream);
 			objectOutputStream.writeObject(config_to_save);
 			objectOutputStream.flush();
 			objectOutputStream.close();
 			fileOutputStream.close();
-			System.out.println("Done!");
+			System.out.println("ObjectLoader: Done!");
 		} catch (Exception e) {
-			System.err.println("Fail to save config at:"+PATH);
+			System.err.println("ObjectLoader: Fail to save config at:"+PATH);
 			e.printStackTrace();
 			return false;
 		}

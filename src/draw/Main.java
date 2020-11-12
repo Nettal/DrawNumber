@@ -43,23 +43,23 @@ public class Main {
 		try {	
 			isloading = true;
 			(new ThreadDiag("请稍后")).start();
-			Thread.sleep(500);
+			Thread.sleep(200);
 			config = new ObjectLoader("DATA").getConfig();
-			System.out.println("minValue:"+config.minValue+"  maxValue:"+ config.maxValue);
+			System.out.println("Main: minValue:"+config.minValue+"  maxValue:"+ config.maxValue);
 	
 			if (!config.repeatable) {
 			if (array==null||array.size()==0) {//满足其一
-				System.out.println("loading unrepeatable array..");
+				System.out.println("Main: loading unrepeatable array..");
 				array = new Array(config.minValue, config.maxValue);
 				blendList(array);
 			}
 		}else {
-			System.out.println("loading repeatable array..");
+			System.out.println("Main: loading repeatable array..");
 			array_Rep = new Array(config.minValue, config.maxValue);
 			blendList(array_Rep);
 		}
 		} catch (Throwable e) {
-			System.err.println("Create an array error");
+			System.err.println("Main: Create an array error");
 			e.printStackTrace();
 			new File("DATA").delete();
 			JOptionPane.showMessageDialog(null,"程序错误："+e.toString(),"抽号",JOptionPane.ERROR_MESSAGE);
@@ -130,9 +130,8 @@ class ThreadDiag extends Thread
             		clueDiag.setAlwaysOnTop(Main.isMessageOnTop);
             		sleep(100);
 				}
-            	
             }catch(Exception e){
-                System.out.println("Exception:" + e);
+                System.out.println("Main: Exception:" + e);
             }
             clueDiag.dispose();//关闭提示框
         }
