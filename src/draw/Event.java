@@ -24,7 +24,7 @@ public class Event implements ActionListener,WindowListener,WindowStateListener,
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		
+
 		if (e.getActionCommand().equals("settings")) {
 			Main.drawGUI.setAlwaysOnTop(false);
 			SwingUtilities.invokeLater(new Runnable() {
@@ -178,8 +178,6 @@ public class Event implements ActionListener,WindowListener,WindowStateListener,
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		// TODO 自动生成的方法存根
-		
 	}
 
 	@Override

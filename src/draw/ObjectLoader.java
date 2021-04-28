@@ -1,6 +1,6 @@
 package draw;
 
-import java.awt.Rectangle;
+import java.awt.*;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -30,6 +30,7 @@ public class ObjectLoader {
 				Main.isMessageOnTop = false;
 				int[] value = Options.getRange();
 				tempConfig = new Config();
+				tempConfig.themeColor = Color.WHITE.getRGB();
 				tempConfig.minValue = value[0];
 				tempConfig.maxValue = value[1];
 				tempConfig.repeatable = Options.repeatable();

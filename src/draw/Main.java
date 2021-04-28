@@ -1,9 +1,7 @@
 package draw;
 
 
-import java.awt.Cursor;
-import java.awt.Dimension;
-import java.awt.Toolkit;
+import java.awt.*;
 import java.io.File;
 
 import javax.swing.JDialog;
@@ -26,7 +24,7 @@ public class Main {
 	public static boolean isMessageOnTop = true;
 	public static Event event = new Event();
 	public static String[] list = null;
-	
+
 	public static void main(String[] args) {
 		System.out.println(
 				"usage:\n [opinion] [args] \n" +

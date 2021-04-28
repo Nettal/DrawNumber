@@ -18,8 +18,8 @@ public class DrawGUI extends JFrame {
 	int width = 600;
 	int height = 450;
 	int count = 0;
-	
-	
+	public Color color;
+
 	JButton settingButton = new JButton("设置");
 	JButton drawButton = new JButton("抽号");
 	public JLabel jLabel = new JLabel("");
@@ -50,11 +50,29 @@ public class DrawGUI extends JFrame {
 		this.addWindowStateListener(Main.event);
 		this.addWindowListener(Main.event);
 		this.addWindowFocusListener(Main.event);
-		this.addComponentListener(new ComponentAdapter() {
+		this.addComponentListener(
+				new ComponentAdapter() {
 			public void componentResized(ComponentEvent e) {
 				DrawGUI.this.setSize(DrawGUI.this.getWidth(), DrawGUI.this.getHeight());
-			} 
+			}
 		});
+			this.setTheme(new Color(Main.config.themeColor));
+	}
+
+	public void setTheme(Color color){
+		this.color = color;
+		this.getContentPane().setBackground(color);
+		drawButton.setBackground(color);
+		settingButton.setBackground(color);
+		settingButton.setForeground(new Color(Integer.MAX_VALUE-color.getRGB()));
+		jLabel.setBackground(color);
+		jLabel.setForeground(new Color(Integer.MAX_VALUE-color.getRGB()));
+		jScrollPane.getViewport().setBackground(color);
+		drawButton.setForeground(new Color(Integer.MAX_VALUE-color.getRGB()));
+		if(Main.Current_jList != null){
+			Main.Current_jList.setBackground(this.color);
+			Main.Current_jList.setForeground(new Color(Integer.MAX_VALUE - this.color.getRGB()));
+		}
 	}
 	
 	
@@ -86,6 +104,10 @@ public class DrawGUI extends JFrame {
 		Main.Current_jList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		Main.Current_jList.addKeyListener(Main.event);
 		Main.Current_jList.addListSelectionListener(Main.event);
+		if(this.color != null){
+			Main.Current_jList.setBackground(this.color);
+			Main.Current_jList.setForeground(new Color(Integer.MAX_VALUE - this.color.getRGB()));
+		}
 		jScrollPane.setViewportView(Main.Current_jList);
 	}
 	
@@ -93,10 +115,10 @@ public class DrawGUI extends JFrame {
 		this.width = width;
 		this.height = height;
 		settingButton.setBounds(0, 0, width/20, height/20);
-		drawButton.setFont(new Font("Dialog",1,(Math.min(height, width)/5)));
+		drawButton.setFont(new Font("Dialog", Font.BOLD,(Math.min(height, width)/5)));
 		drawButton.setBounds(width/20, height/20, width/2, height/3);
 		jLabel.setBounds(width/20, height/3+height/20, width/2, height/2);
-		jLabel.setFont(new Font("Dialog",1,(int) (Math.min(height, width)/division)));
+		jLabel.setFont(new Font("Dialog", Font.BOLD,(int) (Math.min(height, width)/division)));
 		jScrollPane.setBounds(width/10+width/2,height/20 , width/3, height-height/5);
 	}
 	
@@ -110,14 +132,14 @@ public class DrawGUI extends JFrame {
 			if (count<1) {
 				jLabel.setText("已抽完！");
 				division = 8;
-				jLabel.setFont(new Font("Dialog",1,(int) (Math.min(height, width)/division)));
+				jLabel.setFont(new Font("Dialog", Font.BOLD,(int) (Math.min(height, width)/division)));
 				jLabel.setForeground(Color.RED);				count++;
 			} else {
 				jLabel.setText("即将进行新一轮");
 				jLabel.setForeground(Color.RED);
 				count = 0;
 				division = 13;
-				jLabel.setFont(new Font("Dialog",1,(int) (Math.min(height, width)/division)));
+				jLabel.setFont(new Font("Dialog", Font.BOLD,(int) (Math.min(height, width)/division)));
 				clear_list();
 				Main.loadNum(Main.list);
 			}
@@ -130,9 +152,9 @@ public class DrawGUI extends JFrame {
 				division = getLength(value);
 			}
 
-		jLabel.setFont(new Font("Dialog",1,(int) (Math.min(height, width)/division)));
-		jLabel.setText(value.toString());
-		jLabel.setForeground(color);
+		jLabel.setFont(new Font("Dialog", Font.BOLD,(int) (Math.min(height, width)/division)));
+		jLabel.setText(value);
+		jLabel.setForeground(this.color == null?color:new Color(Integer.MAX_VALUE - this.color.getRGB() - color.getRGB()));
 		}
 	}
 

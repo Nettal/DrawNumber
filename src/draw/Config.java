@@ -12,4 +12,5 @@ public class Config implements Serializable {
 	public int maxValue = 0 ;
 	public Rectangle shape = null ;
 	public boolean repeatable =false;
+	public int themeColor;
 }
