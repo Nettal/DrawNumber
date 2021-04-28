@@ -16,9 +16,9 @@ import javax.swing.SwingUtilities;
 
 public class Main {
 	
-	public static JList<String> Currect_jList;
+	public static JList<String> Current_jList;
 	public static JList<Integer> jList;
-	public static boolean isloading = false;
+	public static boolean isLoading = false;
 	public static Array array;
 	public static Array array_Rep;
 	public static DrawGUI drawGUI;
@@ -41,9 +41,9 @@ public class Main {
 	}
 	public static void loadNum() {
 		try {	
-			isloading = true;
-			(new ThreadDiag("请稍后")).start();
-			Thread.sleep(200);
+			isLoading = true;
+			(new ThreadDialog("请稍后")).start();
+			Thread.sleep(100);
 			config = new ObjectLoader("DATA").getConfig();
 			System.out.println("Main: minValue:"+config.minValue+"  maxValue:"+ config.maxValue);
 	
@@ -65,13 +65,13 @@ public class Main {
 			JOptionPane.showMessageDialog(null,"程序错误："+e.toString(),"抽号",JOptionPane.ERROR_MESSAGE);
 			System.exit(0);
 		}
-			isloading = false;
+			isLoading = false;
 	}
 	
 	public static void blendList(Array a) {
-		int leng = a.size();
-		for (int i = 0; i < leng; i++) {
-			int index = (int)(Math.random()*leng);
+		int len = a.size();
+		for (int i = 0; i < len; i++) {
+			int index = (int)(Math.random()*len);
 			Integer tempInteger = a.get(i);
 			a.set(i, a.get(index));
 			a.set(index, tempInteger);
@@ -79,35 +79,35 @@ public class Main {
 	}
 }
 
-class ThreadDiag extends Thread
+class ThreadDialog extends Thread
 {
 
     private String messages = "";//提示框的提示信息
     private JFrame parentFrame = null;//提示框的父窗体
-    private JDialog clueDiag = null;// “线程正在运行”提示框
+    private JDialog clueDialog = null;// “线程正在运行”提示框
 
 
     private Dimension dimensions = Toolkit.getDefaultToolkit().getScreenSize();
     private int width = dimensions.width / 4, height = 60;
     private int left = 0, top = 0;
 
-    public ThreadDiag(String messages)
+    public ThreadDialog(String messages)
     {
 
         this.messages= messages;
-        initDiag();//初始化提示框
+        initDialog();//初始化提示框
     }
 
-    protected void initDiag()
+    protected void initDialog()
     {
-        clueDiag = new JDialog(parentFrame,"抽号",true);
-        clueDiag.setAlwaysOnTop(true);
-        clueDiag.setCursor(new Cursor(Cursor.WAIT_CURSOR));
+        clueDialog = new JDialog(parentFrame,"抽号",true);
+        clueDialog.setAlwaysOnTop(true);
+        clueDialog.setCursor(new Cursor(Cursor.WAIT_CURSOR));
         JPanel testPanel = new JPanel();
         JLabel testLabel = new JLabel(messages);
-        clueDiag.getContentPane().add(testPanel);
+        clueDialog.getContentPane().add(testPanel);
         testPanel.add(testLabel);
-        (new DisposeDiag()).start();//启动关闭提示框线程
+        (new DisposeDialog()).start();//启动关闭提示框线程
     }
 
     public void run()
@@ -115,25 +115,25 @@ class ThreadDiag extends Thread
 //        显示提示框
         left = (dimensions.width - width)/2;
         top = (dimensions.height - height)/2;
-        clueDiag.setSize(new Dimension(100,100));
-        clueDiag.setLocation(left, top);
-        clueDiag.setVisible(true);
+        clueDialog.setSize(new Dimension(100,100));
+        clueDialog.setLocation(left, top);
+        clueDialog.setVisible(true);
     }
 
-    class DisposeDiag extends Thread
+    class DisposeDialog extends Thread
     {
         public void run()
         {
             try
             {
-            	while (Main.isloading) {
-            		clueDiag.setAlwaysOnTop(Main.isMessageOnTop);
-            		sleep(100);
+            	while (Main.isLoading) {
+            		clueDialog.setAlwaysOnTop(Main.isMessageOnTop);
+            		sleep(50);
 				}
             }catch(Exception e){
                 System.out.println("Main: Exception:" + e);
             }
-            clueDiag.dispose();//关闭提示框
+            clueDialog.dispose();//关闭提示框
         }
     } 
 }

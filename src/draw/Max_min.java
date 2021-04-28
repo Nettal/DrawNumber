@@ -3,35 +3,35 @@ package draw;
 import javax.swing.JOptionPane;
 
 public class Max_min {
-	static boolean isMinCurrect=false;
-	static boolean isMaxCurrect=false;
-	static String minValueinfoString = "请输入最小值(不含)";
-	static String maxValueinfoString = "请输入最大值(包含)";
-	static String minrangesString = "";
-	static String maxrangesString = "";
+	static boolean isMinCurrent =false;
+	static boolean isMaxCurrent =false;
+	static String minValueInfoString = "请输入最小值(不含)";
+	static String maxValueInfoString = "请输入最大值(包含)";
+	static String minRangesString = "";
+	static String maxRangesString = "";
 	static int[] rang = {0,0};
 	public Max_min() {
 	}
 	
 	public static int[] getRange() {
-		while(!isMinCurrect) {
-			minrangesString =JOptionPane.showInputDialog(null,minValueinfoString , "抽号",JOptionPane.PLAIN_MESSAGE );
+		while(!isMinCurrent) {
+			minRangesString =JOptionPane.showInputDialog(null, minValueInfoString, "抽号",JOptionPane.PLAIN_MESSAGE );
 			try {
-				rang[0] =Integer.parseInt(minrangesString);
-				isMinCurrect=true;
+				rang[0] =Integer.parseInt(minRangesString);
+				isMinCurrent =true;
 				
 			} catch (Exception e) {
-				minValueinfoString="最小值错误";
+				minValueInfoString ="最小值错误";
 				}
 			}
-		while(!isMaxCurrect) {
-			maxrangesString=JOptionPane.showInputDialog(null,maxValueinfoString, "抽号",JOptionPane.PLAIN_MESSAGE );	
+		while(!isMaxCurrent) {
+			maxRangesString =JOptionPane.showInputDialog(null, maxValueInfoString, "抽号",JOptionPane.PLAIN_MESSAGE );
 			try {
-				rang[1] =Integer.parseInt(maxrangesString);
-				isMaxCurrect=true;
+				rang[1] =Integer.parseInt(maxRangesString);
+				isMaxCurrent =true;
 				
 			} catch (Exception e) {
-				minValueinfoString="最大值错误";
+				minValueInfoString ="最大值错误";
 				}
 			}
 
@@ -41,8 +41,8 @@ public class Max_min {
 				rang[1] = rang[0];
 				rang[0] = temp;
 			}
-		isMinCurrect=false;
-		isMaxCurrect=false;
+		isMinCurrent =false;
+		isMaxCurrent =false;
 		return rang;
 	}	
 }

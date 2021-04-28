@@ -3,41 +3,41 @@ package draw;
 import javax.swing.JOptionPane;
 
 public class Options {
-	static boolean isMinCurrect=false;
-	static boolean isMaxCurrect=false;
-	static String minValueinfoString = "请输入最小值(包含)";
-	static String maxValueinfoString = "请输入最大值(包含)";
-	static String minrangesString = "";
-	static String maxrangesString = "";
+	static boolean isMinCurrent =false;
+	static boolean isMaxCurrent =false;
+	static String minValueInfoString = "请输入最小值(包含)";
+	static String maxValueInfoString = "请输入最大值(包含)";
+	static String minRangesString = "";
+	static String maxRangesString = "";
 	static int[] rang = {0,0};
 	public Options() {
 	}
 	
 	public static int[] getRange() {
-		while(!isMinCurrect) {
-			minrangesString =JOptionPane.showInputDialog(null,minValueinfoString , "抽号",JOptionPane.PLAIN_MESSAGE );
-			if (minrangesString==null) {
+		while(!isMinCurrent) {
+			minRangesString =JOptionPane.showInputDialog(null, minValueInfoString, "抽号",JOptionPane.PLAIN_MESSAGE );
+			if (minRangesString ==null) {
 				System.exit(0);
 			}
 			try {
-				rang[0] =Integer.parseInt(minrangesString);
-				isMinCurrect=true;
+				rang[0] =Integer.parseInt(minRangesString);
+				isMinCurrent =true;
 				
 			} catch (Exception e) {
-				minValueinfoString="最小值错误";
+				minValueInfoString ="最小值错误";
 				}
 			}
-		while(!isMaxCurrect) {
-			maxrangesString=JOptionPane.showInputDialog(null,maxValueinfoString, "抽号",JOptionPane.PLAIN_MESSAGE );	
-			if (maxrangesString==null) {
+		while(!isMaxCurrent) {
+			maxRangesString =JOptionPane.showInputDialog(null, maxValueInfoString, "抽号",JOptionPane.PLAIN_MESSAGE );
+			if (maxRangesString ==null) {
 				System.exit(0);
 			}
 			try {
-				rang[1] =Integer.parseInt(maxrangesString);
-				isMaxCurrect=true;
+				rang[1] =Integer.parseInt(maxRangesString);
+				isMaxCurrent =true;
 				
 			} catch (Exception e) {
-				minValueinfoString="最大值错误";
+				minValueInfoString ="最大值错误";
 				}
 			}
 
@@ -47,18 +47,14 @@ public class Options {
 				rang[1] = rang[0];
 				rang[0] = temp;
 			}
-		isMinCurrect=false;
-		isMaxCurrect=false;
+		isMinCurrent =false;
+		isMaxCurrent =false;
 		return rang;
 	}	
 	
 	public static boolean repeatable() {
 		int intRep = JOptionPane.showConfirmDialog(null, "是否不重复？", "抽号", JOptionPane.YES_NO_OPTION);
 		System.out.println(intRep);
-		if (intRep == 1) {
-			return true;
-		} else {
-			return false;
-		}
+		return intRep == 1;
 	}
 }

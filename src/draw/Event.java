@@ -194,7 +194,7 @@ public class Event implements ActionListener,WindowListener,WindowStateListener,
 	@Override
 	public void valueChanged(ListSelectionEvent e) {
 		// TODO 自动生成的方法存根
-		int index = Main.Currect_jList.getSelectedIndex();
+		int index = Main.Current_jList.getSelectedIndex();
 		if (Main.config.repeatable) {
 			if (arrayList_Rep.isEmpty()) return;
 			//截取字符串

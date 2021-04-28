@@ -17,38 +17,31 @@ public class ObjectLoader {
 	
 	
 	public  Config getConfig() {
-		boolean isLoadSuccess = false;
-		while (!isLoadSuccess) {
+		while (true) {
 		try {
-		if (file.exists()) {
-			Config config = null;
-			config = this.loadConfig();
-			if (config == null) {
-				isLoadSuccess = false;
-			}else {
-				isLoadSuccess = true;
-				return config;
+			if (file.exists()) {
+				Config config = null;
+				config = this.loadConfig();
+				if (config != null)
+					return config;
+			} else {
+				System.out.println("ObjectLoader: Config does not exist,trying to create a new config at:"+file.getAbsolutePath());
+				Config tempConfig = null;
+				Main.isMessageOnTop = false;
+				int[] value = Options.getRange();
+				tempConfig = new Config();
+				tempConfig.minValue = value[0];
+				tempConfig.maxValue = value[1];
+				tempConfig.repeatable = Options.repeatable();
+				Main.isMessageOnTop = true;
+				tempConfig.shape = new Rectangle(100, 100, 600, 450);
+				saveConfig(tempConfig);
+				return tempConfig;
 			}
-			
-		} else {
-			System.out.println("ObjectLoader: Config does not exist,trying to create a new config at:"+file.getAbsolutePath());
-			Config tempConfig = null;
-			Main.isMessageOnTop = false;
-			int[] value = Options.getRange();
-			tempConfig = new Config();
-			tempConfig.minValue = value[0];
-			tempConfig.maxValue = value[1];
-			tempConfig.repeatable = Options.repeatable();
-			Main.isMessageOnTop = true;
-			tempConfig.shape = new Rectangle(100, 100, 600, 450);
-			saveConfig(tempConfig);
-			isLoadSuccess = true;
-			return tempConfig;
-	}}catch (Exception e) {
-		isLoadSuccess = false;
+		}catch (Exception e) {
+			return null;
 		}
 	}//end while
-		return null;
 }
 	
 
@@ -89,7 +82,7 @@ public class ObjectLoader {
 					e2.printStackTrace();
 				}
 			return null;
-		}
+			}
 		}else {
 			System.err.println("ObjectLoader: " + file.getAbsolutePath()+": does not exist");
 			return null;
@@ -123,5 +116,4 @@ public class ObjectLoader {
 		}
 		return true;
 	}
-
 }

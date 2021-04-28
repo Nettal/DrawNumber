@@ -19,8 +19,8 @@ public class DrawGUI extends JFrame {
 	
 	private static final long serialVersionUID = -8854186460449111662L;
 	double division = 2;
-	int posx = 10;
-	int posy = 10;
+	int posX = 10;
+	int posY = 10;
 	int width = 600;
 	int height = 450;
 	int count = 0;
@@ -34,15 +34,15 @@ public class DrawGUI extends JFrame {
 	public DrawGUI() {
 		super(String.format("抽号:[%d,%d]  @Version 1.1.2", Main.config.minValue , Main.config.maxValue));
 		jScrollPane = new JScrollPane(Main.jList);
-		posx = Main.config.shape.x;
-		posy = Main.config.shape.y;
+		posX = Main.config.shape.x;
+		posY = Main.config.shape.y;
 		width = Main.config.shape.width;
 		height = Main.config.shape.height;
 		setSize(width, height);
 		Main.jList = jList();
 		this.setDefaultCloseOperation(3);
 		this.getContentPane().add(getJpanel());
-		this.setBounds(posx, posy ,width , height);
+		this.setBounds(posX, posY,width , height);
 		this.addKeyListener(Main.event);
 		drawButton.addKeyListener(Main.event);
 		settingButton.addKeyListener(Main.event);
@@ -86,11 +86,11 @@ public class DrawGUI extends JFrame {
 	}
 	
 	void setJScrollPaneContent(String[] strings ) {
-		Main.Currect_jList = new JList<String>(strings);
-		Main.Currect_jList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		Main.Currect_jList.addKeyListener(Main.event); 
-		Main.Currect_jList.addListSelectionListener(Main.event);
-		jScrollPane.setViewportView(Main.Currect_jList);
+		Main.Current_jList = new JList<String>(strings);
+		Main.Current_jList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		Main.Current_jList.addKeyListener(Main.event);
+		Main.Current_jList.addListSelectionListener(Main.event);
+		jScrollPane.setViewportView(Main.Current_jList);
 	}
 	
 	public void setSize(int width , int height) {
@@ -106,7 +106,7 @@ public class DrawGUI extends JFrame {
 	
 	public void clear_list() {
 				Main.event.arrayList = new  ArrayList<String>();
-				Main.Currect_jList = new JList<String>() ;
+				Main.Current_jList = new JList<String>() ;
 	}
 
 	public void setText(Integer value , Color color) {
@@ -126,12 +126,12 @@ public class DrawGUI extends JFrame {
 				Main.loadNum();
 			}
 		} else {
-			if (getlength(value)==2) {
+			if (getLength(value)==2) {
 				division = 3.5;
-			} else if (getlength(value)==3) {
+			} else if (getLength(value)==3) {
 				division = 4;
 			}else{
-				division = getlength(value);
+				division = getLength(value);
 			}
 			
 		jLabel.setFont(new Font("Dialog",1,(int) (height/division)));
@@ -140,7 +140,7 @@ public class DrawGUI extends JFrame {
 		}
 	}	
 	
-	private int getlength (int num){
+	private int getLength(int num){
 		int length=0;
 		if (num <= 9) {
 			length++;
