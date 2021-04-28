@@ -1,23 +1,27 @@
 package draw;
 import java.util.ArrayList;
+import java.util.Arrays;
 
-public class Array extends ArrayList<Integer> {
+public class Array extends ArrayList<String> {
 	/**
 	 * 
 	 */
 	java.security.SecureRandom rand =new java.security.SecureRandom();
 	private static final long serialVersionUID = 1L;
 	private int minValue;
+	private final boolean isStr;
 //	private int maxValue;
 
+	//整数
 	public Array(int minValue,int maxValue){
 		super(maxValue-minValue);
+		this.isStr = false;
 //		this.maxValue = maxValue;
 		this.minValue = minValue;
 		int size = maxValue-minValue+1;
 		System.out.println("Array: The size of array to load is:"+size);
 		for(int i=1;i<=size;i++){
-			this.add(Integer.valueOf(i));
+			this.add(String.valueOf(i));
 		//	System.err.println(i);
 		}
 		System.out.println("Array: Load array done!");
@@ -26,34 +30,74 @@ public class Array extends ArrayList<Integer> {
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
-
 	}
-	public Integer getInt(int index) {
-		try {
-			int temp = this.get(index);
+
+
+	//字符串
+	public Array(String[] s){
+		super(s.length);
+		this.isStr = true;
+		this.addAll(Arrays.asList(s));
+	}
+
+	//字符串
+	private String getStr(int index){
+		try{
+			String ret = get(index);
 			this.remove(index);
-			return temp+minValue-1;
-		} catch (Exception e) {
+			return ret;
+		}catch (Exception e){
 			System.out.println("Array: "+e.toString());
 			return null;
 		}
+	}
 
+	//字符串
+	private String getStr_Rep(int index){
+		try{
+			return this.get(index);
+		}catch (Exception e){
+			System.out.println("Array: "+e.toString());
+			return null;
+		}
 	}
-	public Integer getInt_without_index() {
-		return getInt((int) (this.size()*rand.nextDouble()));
-	}
-	
-	
-	public Integer getInt_Rep(int index) {
+
+
+	//整数
+	private String getInt(int index) {
 		try {
-			int temp = this.get(index);
-			return temp+minValue-1;
+			int temp = Integer.parseInt(this.get(index));
+			this.remove(index);
+			return String.valueOf(temp+minValue-1);
 		} catch (Exception e) {
 			System.out.println("Array: "+e.toString());
 			return null;
 		}
 	}
-	public Integer getInt_without_index_Rep() {
-		return getInt_Rep((int) (this.size()*rand.nextDouble()));
+
+	//整数
+	private String getInt_Rep(int index) {
+		try {
+			int temp = Integer.parseInt(this.get(index));
+			return String.valueOf(temp+minValue-1);
+		} catch (Exception e) {
+			System.out.println("Array: "+e.toString());
+			return null;
+		}
+	}
+
+
+	public String getStr_without_index() {
+		if(isStr)
+			return getStr((int) (this.size()*rand.nextDouble()));
+		else
+			return getInt((int) (this.size()*rand.nextDouble()));
+	}
+
+	public String getStr_without_index_Rep() {
+		if(isStr)
+			return getStr_Rep((int) (this.size()*rand.nextDouble()));
+		else
+			return getInt_Rep((int) (this.size()*rand.nextDouble()));
 	}
 }	

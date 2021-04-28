@@ -1,7 +1,9 @@
 package draw;
 
-import java.awt.Component;
-import java.awt.Font;
+import java.awt.*;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowFocusListener;
+import java.awt.event.WindowListener;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -9,7 +11,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class SettingsGUI extends JFrame{
+public class SettingsGUI extends JFrame implements WindowListener {
 	private static final long serialVersionUID = -5209828332008414779L;
 	
 	Event event = Main.event;
@@ -28,6 +30,7 @@ public class SettingsGUI extends JFrame{
 		this.setVisible(true);
 		this.setAlwaysOnTop(true);
 		this.getContentPane().add(addComponent());
+		this.addWindowListener(this);
 	}
 
 	private Component addComponent() {
@@ -57,8 +60,43 @@ public class SettingsGUI extends JFrame{
 		jp.add(reSetButton3);
 		about.setBounds(10,80,400, 400);
 		about.setFont(new Font("Dialog",1,20));
-		about.setText("<html>关于：<br>LJR github@SnowNF<br>LJX github@37385<br>邮箱3374353308@qq.com<br>邮箱3186856156@qq.com<br>license:LGPL v2.1<br>项目地址：github.com/37385/drawnum</html> ");
+		about.setText("<html>关于：<br>刘家瑞 github@SnowNF<br>刘家祥 github@37385<br>邮箱3374353308@qq.com<br>邮箱3186856156@qq.com<br>license:LGPL v2.1<br>项目地址：github.com/37385/drawnum</html> ");
 		jp.add(about);
 		return jp;
+	}
+
+	@Override
+	public void windowOpened(WindowEvent e) {
+
+	}
+
+	@Override
+	public void windowClosing(WindowEvent e) {
+
+	}
+
+	@Override
+	public void windowClosed(WindowEvent e) {
+		Main.drawGUI.setAlwaysOnTop(true);
+	}
+
+	@Override
+	public void windowIconified(WindowEvent e) {
+
+	}
+
+	@Override
+	public void windowDeiconified(WindowEvent e) {
+
+	}
+
+	@Override
+	public void windowActivated(WindowEvent e) {
+
+	}
+
+	@Override
+	public void windowDeactivated(WindowEvent e) {
+
 	}
 }

@@ -25,22 +25,37 @@ public class Main {
 	public static Config config;
 	public static boolean isMessageOnTop = true;
 	public static Event event = new Event();
+	public static String[] list = null;
 	
 	public static void main(String[] args) {
-		if (!(args.length==0)) {
-			legacy.Main.main();
-		} else {
-			loadNum();
-				SwingUtilities.invokeLater(new Runnable() {
-				@Override
-				public void run() {
-					drawGUI =new DrawGUI();
-				}
-			});
-		 }
+		System.out.println(
+				"usage:\n [opinion] [args] \n" +
+				"  available opinions:\n" +
+		        "    legacy : use old draw num\n" +
+				"    list : use String list instead of pure-integers\n"+
+				"       example command line: \n" +
+				"       java -jar *.jar list: aaa;bbb;ccc;ddd;eee\n");
+
+
+		for (int i = 0; i < args.length; i++) {
+			if (args[i].equals("legacy")){
+				legacy.Main.main();
+				return;
+			}else if(args[i].equals("list:")){
+				list = args[i + 1].split(";");
+			}
+		}
+		loadNum(list);
+		SwingUtilities.invokeLater(new Runnable() {
+			@Override
+			public void run() {
+				drawGUI =new DrawGUI();
+			}
+		});
 	}
-	public static void loadNum() {
-		try {	
+
+	public static void loadNum(String[] str) {
+		try {
 			isLoading = true;
 			(new ThreadDialog("请稍后")).start();
 			Thread.sleep(100);
@@ -50,12 +65,18 @@ public class Main {
 			if (!config.repeatable) {
 			if (array==null||array.size()==0) {//满足其一
 				System.out.println("Main: loading unrepeatable array..");
-				array = new Array(config.minValue, config.maxValue);
+				if(str == null)
+					array = new Array(config.minValue, config.maxValue);
+				else
+					array = new Array(str);
 				blendList(array);
 			}
 		}else {
 			System.out.println("Main: loading repeatable array..");
-			array_Rep = new Array(config.minValue, config.maxValue);
+			if(str == null)
+				array_Rep = new Array(config.minValue, config.maxValue);
+			else
+				array_Rep = new Array(str);
 			blendList(array_Rep);
 		}
 		} catch (Throwable e) {
@@ -72,7 +93,7 @@ public class Main {
 		int len = a.size();
 		for (int i = 0; i < len; i++) {
 			int index = (int)(Math.random()*len);
-			Integer tempInteger = a.get(i);
+			String tempInteger = a.get(i);
 			a.set(i, a.get(index));
 			a.set(index, tempInteger);
 		}
@@ -93,7 +114,6 @@ class ThreadDialog extends Thread
 
     public ThreadDialog(String messages)
     {
-
         this.messages= messages;
         initDialog();//初始化提示框
     }

@@ -1,15 +1,7 @@
 package draw;
 
 import java.awt.Color;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
-import java.awt.event.WindowStateListener;
+import java.awt.event.*;
 import java.io.File;
 import java.util.ArrayList;
 
@@ -18,11 +10,12 @@ import javax.swing.SwingUtilities;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-public class Event implements ActionListener,WindowListener,WindowStateListener, ItemListener,KeyListener,ListSelectionListener{
+public class Event implements ActionListener,WindowListener,WindowStateListener, ItemListener,KeyListener,ListSelectionListener, WindowFocusListener {
 	
 	int windowState = 0;
-	Integer getInteger;
-	
+	String getInteger;
+	SettingsGUI settingsGUI;
+
 	public ArrayList<String> arrayList = new ArrayList<String>();
 	ArrayList<String> arrayList_Rep = new ArrayList<String>();
 	public Event() {
@@ -33,12 +26,13 @@ public class Event implements ActionListener,WindowListener,WindowStateListener,
 	public void actionPerformed(ActionEvent e) {
 		
 		if (e.getActionCommand().equals("settings")) {
-		SwingUtilities.invokeLater(new Runnable() {
-			@Override
-			public void run() {
-				new SettingsGUI();
-			}
-		});
+			Main.drawGUI.setAlwaysOnTop(false);
+			SwingUtilities.invokeLater(new Runnable() {
+				@Override
+				public void run() {
+					settingsGUI = new SettingsGUI();
+				}
+			});
 		}
 		if(e.getActionCommand().equals("draw")) {
 			this.onDraw();
@@ -59,22 +53,19 @@ public class Event implements ActionListener,WindowListener,WindowStateListener,
 
 	public void onDraw() {
 		if (Main.config.repeatable) {
-			getInteger = Main.array_Rep.getInt_without_index_Rep();
+			getInteger = Main.array_Rep.getStr_without_index_Rep();
 		if (!(getInteger == null)) {
 			arrayList_Rep.add(0,(arrayList_Rep.size()+1)+":"+ getInteger.toString());
 			Main.drawGUI.setJScrollPaneContent(arrayList_Rep.toArray(new String[arrayList_Rep.size()]));//array_list转换成字符串组
 		}
-		Main.drawGUI.setText(getInteger , Color.BLACK);
 		}else {
-			getInteger = Main.array.getInt_without_index();	
+			getInteger = Main.array.getStr_without_index();
 			if (!(getInteger == null)) {
 				arrayList.add(0,(arrayList.size()+1)+":"+ getInteger.toString());
 				Main.drawGUI.setJScrollPaneContent(arrayList.toArray(new String[arrayList.size()]));//array_list转换成字符串组
 			}
-			Main.drawGUI
-			.setText(getInteger , Color.BLACK);	
 		}
-
+		Main.drawGUI.setText(getInteger , Color.BLACK);
 	}
 
 	@Override
@@ -86,6 +77,10 @@ public class Event implements ActionListener,WindowListener,WindowStateListener,
 	@Override
 	public void windowClosing(WindowEvent e) {
 		// TODO 自动生成的方法存根
+		if(settingsGUI != null){
+			settingsGUI.dispose();
+			settingsGUI = null;
+		}
 		this.onClose();
 	}
 
@@ -141,13 +136,9 @@ public class Event implements ActionListener,WindowListener,WindowStateListener,
 	}
 	
 	private void setRep() {
-		if (SettingsGUI.jCheckBox.isSelected()) {
-			Main.config.repeatable = true;
-		}else {
-			Main.config.repeatable = false;	
-		}
+		Main.config.repeatable = SettingsGUI.jCheckBox.isSelected();
 		new ObjectLoader("DATA").saveConfig(Main.config);
-		Main.loadNum();
+		Main.loadNum(Main.list);
 	}
 	
 	boolean isFirst = true;
@@ -199,14 +190,27 @@ public class Event implements ActionListener,WindowListener,WindowStateListener,
 			if (arrayList_Rep.isEmpty()) return;
 			//截取字符串
 			String cutStr = arrayList_Rep.get(index);
-			Main.drawGUI.setText(Integer.parseInt(cutStr.substring(cutStr.indexOf(":")+1, cutStr.length())) , Color.BLUE);
+			Main.drawGUI.setText(cutStr.substring(cutStr.indexOf(":")+1, cutStr.length()) , Color.BLUE);
 
 		}else {
 			if (arrayList.isEmpty()) return;
 			//截取字符串
 			String cutStr = arrayList.get(index);
-			Main.drawGUI.setText(Integer.parseInt(cutStr.substring(cutStr.indexOf(":")+1, cutStr.length())) , Color.BLUE);
+			Main.drawGUI.setText(cutStr.substring(cutStr.indexOf(":")+1, cutStr.length()) , Color.BLUE);
 		}
 	}
-	
+
+	@Override
+	public void windowGainedFocus(WindowEvent e) {
+		if(settingsGUI != null){
+			settingsGUI.dispose();
+			Main.drawGUI.setAlwaysOnTop(true);
+			settingsGUI = null;
+		}
+	}
+
+	@Override
+	public void windowLostFocus(WindowEvent e) {
+
+	}
 }

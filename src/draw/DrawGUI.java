@@ -7,13 +7,7 @@ import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.util.ArrayList;
 
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JList;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.ListSelectionModel;
+import javax.swing.*;
 
 public class DrawGUI extends JFrame {
 	
@@ -32,7 +26,9 @@ public class DrawGUI extends JFrame {
 	JScrollPane jScrollPane = null;
 	
 	public DrawGUI() {
-		super(String.format("抽号:[%d,%d]  @Version 1.1.2", Main.config.minValue , Main.config.maxValue));
+		super(Main.list == null?
+				String.format("抽号:[%d,%d]  @Version 1.2", Main.config.minValue , Main.config.maxValue):
+				String.format("抽号:列表模式,共%d个 @Version 1.2",Main.list.length));
 		jScrollPane = new JScrollPane(Main.jList);
 		posX = Main.config.shape.x;
 		posY = Main.config.shape.y;
@@ -40,8 +36,8 @@ public class DrawGUI extends JFrame {
 		height = Main.config.shape.height;
 		setSize(width, height);
 		Main.jList = jList();
-		this.setDefaultCloseOperation(3);
-		this.getContentPane().add(getJpanel());
+		this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+		this.getContentPane().add(getJPanel());
 		this.setBounds(posX, posY,width , height);
 		this.addKeyListener(Main.event);
 		drawButton.addKeyListener(Main.event);
@@ -53,16 +49,16 @@ public class DrawGUI extends JFrame {
 		this.setAlwaysOnTop(true);
 		this.addWindowStateListener(Main.event);
 		this.addWindowListener(Main.event);
-
+		this.addWindowFocusListener(Main.event);
 		this.addComponentListener(new ComponentAdapter() {
 			public void componentResized(ComponentEvent e) {
 				DrawGUI.this.setSize(DrawGUI.this.getWidth(), DrawGUI.this.getHeight());
 			} 
 		});
-		}
+	}
 	
 	
-	JPanel getJpanel() {
+	JPanel getJPanel() {
 		JPanel jp = new JPanel(null);
 		jp.setOpaque(false);
 		settingButton.setActionCommand("settings");
@@ -97,10 +93,10 @@ public class DrawGUI extends JFrame {
 		this.width = width;
 		this.height = height;
 		settingButton.setBounds(0, 0, width/20, height/20);
-		drawButton.setFont(new Font("Dialog",1,height/5));
+		drawButton.setFont(new Font("Dialog",1,(Math.min(height, width)/5)));
 		drawButton.setBounds(width/20, height/20, width/2, height/3);
 		jLabel.setBounds(width/20, height/3+height/20, width/2, height/2);
-		jLabel.setFont(new Font("Dialog",1,(int) (height/division)));
+		jLabel.setFont(new Font("Dialog",1,(int) (Math.min(height, width)/division)));
 		jScrollPane.setBounds(width/10+width/2,height/20 , width/3, height-height/5);
 	}
 	
@@ -109,21 +105,21 @@ public class DrawGUI extends JFrame {
 				Main.Current_jList = new JList<String>() ;
 	}
 
-	public void setText(Integer value , Color color) {
+	public void setText(String value , Color color) {
 		if (value==null) {
 			if (count<1) {
 				jLabel.setText("已抽完！");
 				division = 8;
-				jLabel.setFont(new Font("Dialog",1,(int) (height/division)));
+				jLabel.setFont(new Font("Dialog",1,(int) (Math.min(height, width)/division)));
 				jLabel.setForeground(Color.RED);				count++;
 			} else {
 				jLabel.setText("即将进行新一轮");
 				jLabel.setForeground(Color.RED);
 				count = 0;
 				division = 13;
-				jLabel.setFont(new Font("Dialog",1,(int) (height/division)));
+				jLabel.setFont(new Font("Dialog",1,(int) (Math.min(height, width)/division)));
 				clear_list();
-				Main.loadNum();
+				Main.loadNum(Main.list);
 			}
 		} else {
 			if (getLength(value)==2) {
@@ -133,26 +129,17 @@ public class DrawGUI extends JFrame {
 			}else{
 				division = getLength(value);
 			}
-			
-		jLabel.setFont(new Font("Dialog",1,(int) (height/division)));
+
+		jLabel.setFont(new Font("Dialog",1,(int) (Math.min(height, width)/division)));
 		jLabel.setText(value.toString());
 		jLabel.setForeground(color);
 		}
-	}	
-	
-	private int getLength(int num){
-		int length=0;
-		if (num <= 9) {
-			length++;
-			}
-		if (num==0) {
-			length++;
-		}
-		num = Math.abs(num);
-		while(num>=1) {
-			num/=10;
-			length++;
-		}
-		return length;
+	}
+
+	private int getLength(String num){
+		int ret = num.length();
+		if(ret == 1)
+			return 2;
+		return ret;
 	}
 }
