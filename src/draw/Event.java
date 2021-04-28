@@ -26,7 +26,7 @@ public class Event implements ActionListener,WindowListener,WindowStateListener,
 	public ArrayList<String> arrayList = new ArrayList<String>();
 	ArrayList<String> arrayList_Rep = new ArrayList<String>();
 	public Event() {
-		// TODO ×Ô¶¯Éú³ÉµÄ¹¹Ôìº¯Êı´æ¸ù
+		// TODO è‡ªåŠ¨ç”Ÿæˆçš„æ„é€ å‡½æ•°å­˜æ ¹
 	}
 
 	@Override
@@ -62,14 +62,14 @@ public class Event implements ActionListener,WindowListener,WindowStateListener,
 			getInteger = Main.array_Rep.getInt_without_index_Rep();
 		if (!(getInteger == null)) {
 			arrayList_Rep.add(0,(arrayList_Rep.size()+1)+":"+ getInteger.toString());
-			Main.drawGUI.setJScrollPaneContent(arrayList_Rep.toArray(new String[arrayList_Rep.size()]));//array_list×ª»»³É×Ö·û´®×é
+			Main.drawGUI.setJScrollPaneContent(arrayList_Rep.toArray(new String[arrayList_Rep.size()]));//array_listè½¬æ¢æˆå­—ç¬¦ä¸²ç»„
 		}
 		Main.drawGUI.setText(getInteger , Color.BLACK);
 		}else {
 			getInteger = Main.array.getInt_without_index();	
 			if (!(getInteger == null)) {
 				arrayList.add(0,(arrayList.size()+1)+":"+ getInteger.toString());
-				Main.drawGUI.setJScrollPaneContent(arrayList.toArray(new String[arrayList.size()]));//array_list×ª»»³É×Ö·û´®×é
+				Main.drawGUI.setJScrollPaneContent(arrayList.toArray(new String[arrayList.size()]));//array_listè½¬æ¢æˆå­—ç¬¦ä¸²ç»„
 			}
 			Main.drawGUI
 			.setText(getInteger , Color.BLACK);	
@@ -79,43 +79,43 @@ public class Event implements ActionListener,WindowListener,WindowStateListener,
 
 	@Override
 	public void windowOpened(WindowEvent e) {
-		// TODO ×Ô¶¯Éú³ÉµÄ·½·¨´æ¸ù
+		// TODO è‡ªåŠ¨ç”Ÿæˆçš„æ–¹æ³•å­˜æ ¹
 		
 	}
 
 	@Override
 	public void windowClosing(WindowEvent e) {
-		// TODO ×Ô¶¯Éú³ÉµÄ·½·¨´æ¸ù
+		// TODO è‡ªåŠ¨ç”Ÿæˆçš„æ–¹æ³•å­˜æ ¹
 		this.onClose();
 	}
 
 	@Override
 	public void windowClosed(WindowEvent e) {
-		// TODO ×Ô¶¯Éú³ÉµÄ·½·¨´æ¸ù
+		// TODO è‡ªåŠ¨ç”Ÿæˆçš„æ–¹æ³•å­˜æ ¹
 		
 	}
 
 	@Override
 	public void windowIconified(WindowEvent e) {
-		// TODO ×Ô¶¯Éú³ÉµÄ·½·¨´æ¸ù
+		// TODO è‡ªåŠ¨ç”Ÿæˆçš„æ–¹æ³•å­˜æ ¹
 		
 	}
 
 	@Override
 	public void windowDeiconified(WindowEvent e) {
-		// TODO ×Ô¶¯Éú³ÉµÄ·½·¨´æ¸ù
+		// TODO è‡ªåŠ¨ç”Ÿæˆçš„æ–¹æ³•å­˜æ ¹
 		
 	}
 
 	@Override
 	public void windowActivated(WindowEvent e) {
-		// TODO ×Ô¶¯Éú³ÉµÄ·½·¨´æ¸ù
+		// TODO è‡ªåŠ¨ç”Ÿæˆçš„æ–¹æ³•å­˜æ ¹
 		
 	}
 
 	@Override
 	public void windowDeactivated(WindowEvent e) {
-		// TODO ×Ô¶¯Éú³ÉµÄ·½·¨´æ¸ù
+		// TODO è‡ªåŠ¨ç”Ÿæˆçš„æ–¹æ³•å­˜æ ¹
 		
 	}
 
@@ -128,7 +128,7 @@ public class Event implements ActionListener,WindowListener,WindowStateListener,
 
 	@Override
 	public void windowStateChanged(WindowEvent e) {
-		// TODO ×Ô¶¯Éú³ÉµÄ·½·¨´æ¸ù
+		// TODO è‡ªåŠ¨ç”Ÿæˆçš„æ–¹æ³•å­˜æ ¹
 		windowState = e.getNewState();
 	}
 
@@ -175,35 +175,35 @@ public class Event implements ActionListener,WindowListener,WindowStateListener,
 
 	@Override
 	public void keyTyped(KeyEvent e) {
-		// TODO ×Ô¶¯Éú³ÉµÄ·½·¨´æ¸ù
+		// TODO è‡ªåŠ¨ç”Ÿæˆçš„æ–¹æ³•å­˜æ ¹
 		
 	}
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		// TODO ×Ô¶¯Éú³ÉµÄ·½·¨´æ¸ù
+		// TODO è‡ªåŠ¨ç”Ÿæˆçš„æ–¹æ³•å­˜æ ¹
 		onDraw();
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		// TODO ×Ô¶¯Éú³ÉµÄ·½·¨´æ¸ù
+		// TODO è‡ªåŠ¨ç”Ÿæˆçš„æ–¹æ³•å­˜æ ¹
 		
 	}
 
 	@Override
 	public void valueChanged(ListSelectionEvent e) {
-		// TODO ×Ô¶¯Éú³ÉµÄ·½·¨´æ¸ù
+		// TODO è‡ªåŠ¨ç”Ÿæˆçš„æ–¹æ³•å­˜æ ¹
 		int index = Main.Currect_jList.getSelectedIndex();
 		if (Main.config.repeatable) {
 			if (arrayList_Rep.isEmpty()) return;
-			//½ØÈ¡×Ö·û´®
+			//æˆªå–å­—ç¬¦ä¸²
 			String cutStr = arrayList_Rep.get(index);
 			Main.drawGUI.setText(Integer.parseInt(cutStr.substring(cutStr.indexOf(":")+1, cutStr.length())) , Color.BLUE);
 
 		}else {
 			if (arrayList.isEmpty()) return;
-			//½ØÈ¡×Ö·û´®
+			//æˆªå–å­—ç¬¦ä¸²
 			String cutStr = arrayList.get(index);
 			Main.drawGUI.setText(Integer.parseInt(cutStr.substring(cutStr.indexOf(":")+1, cutStr.length())) , Color.BLUE);
 		}

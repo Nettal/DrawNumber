@@ -42,13 +42,13 @@ public class Main {
 	public static void loadNum() {
 		try {	
 			isloading = true;
-			(new ThreadDiag("ÇëÉÔºó")).start();
+			(new ThreadDiag("è¯·ç¨å")).start();
 			Thread.sleep(200);
 			config = new ObjectLoader("DATA").getConfig();
 			System.out.println("Main: minValue:"+config.minValue+"  maxValue:"+ config.maxValue);
 	
 			if (!config.repeatable) {
-			if (array==null||array.size()==0) {//Âú×ãÆäÒ»
+			if (array==null||array.size()==0) {//æ»¡è¶³å…¶ä¸€
 				System.out.println("Main: loading unrepeatable array..");
 				array = new Array(config.minValue, config.maxValue);
 				blendList(array);
@@ -62,7 +62,7 @@ public class Main {
 			System.err.println("Main: Create an array error");
 			e.printStackTrace();
 			new File("DATA").delete();
-			JOptionPane.showMessageDialog(null,"³ÌĞò´íÎó£º"+e.toString(),"³éºÅ",JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null,"ç¨‹åºé”™è¯¯ï¼š"+e.toString(),"æŠ½å·",JOptionPane.ERROR_MESSAGE);
 			System.exit(0);
 		}
 			isloading = false;
@@ -82,9 +82,9 @@ public class Main {
 class ThreadDiag extends Thread
 {
 
-    private String messages = "";//ÌáÊ¾¿òµÄÌáÊ¾ĞÅÏ¢
-    private JFrame parentFrame = null;//ÌáÊ¾¿òµÄ¸¸´°Ìå
-    private JDialog clueDiag = null;// ¡°Ïß³ÌÕıÔÚÔËĞĞ¡±ÌáÊ¾¿ò
+    private String messages = "";//æç¤ºæ¡†çš„æç¤ºä¿¡æ¯
+    private JFrame parentFrame = null;//æç¤ºæ¡†çš„çˆ¶çª—ä½“
+    private JDialog clueDiag = null;// â€œçº¿ç¨‹æ­£åœ¨è¿è¡Œâ€æç¤ºæ¡†
 
 
     private Dimension dimensions = Toolkit.getDefaultToolkit().getScreenSize();
@@ -95,24 +95,24 @@ class ThreadDiag extends Thread
     {
 
         this.messages= messages;
-        initDiag();//³õÊ¼»¯ÌáÊ¾¿ò
+        initDiag();//åˆå§‹åŒ–æç¤ºæ¡†
     }
 
     protected void initDiag()
     {
-        clueDiag = new JDialog(parentFrame,"³éºÅ",true);
+        clueDiag = new JDialog(parentFrame,"æŠ½å·",true);
         clueDiag.setAlwaysOnTop(true);
         clueDiag.setCursor(new Cursor(Cursor.WAIT_CURSOR));
         JPanel testPanel = new JPanel();
         JLabel testLabel = new JLabel(messages);
         clueDiag.getContentPane().add(testPanel);
         testPanel.add(testLabel);
-        (new DisposeDiag()).start();//Æô¶¯¹Ø±ÕÌáÊ¾¿òÏß³Ì
+        (new DisposeDiag()).start();//å¯åŠ¨å…³é—­æç¤ºæ¡†çº¿ç¨‹
     }
 
     public void run()
     {
-//        ÏÔÊ¾ÌáÊ¾¿ò
+//        æ˜¾ç¤ºæç¤ºæ¡†
         left = (dimensions.width - width)/2;
         top = (dimensions.height - height)/2;
         clueDiag.setSize(new Dimension(100,100));
@@ -133,7 +133,7 @@ class ThreadDiag extends Thread
             }catch(Exception e){
                 System.out.println("Main: Exception:" + e);
             }
-            clueDiag.dispose();//¹Ø±ÕÌáÊ¾¿ò
+            clueDiag.dispose();//å…³é—­æç¤ºæ¡†
         }
     } 
 }

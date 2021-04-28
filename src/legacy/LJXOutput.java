@@ -87,94 +87,94 @@ public class LJXOutput
 				}
 				switch(Out){
 					case 0:
-						if(i==0){System.out.print("¨€¨€¨€¨€¨€");}else
-						if(i==1){System.out.print("¨€      ¨€");}else
-						if(i==2){System.out.print("¨€      ¨€");}else
-						if(i==3){System.out.print("¨€      ¨€");}else
-						if(i==4){System.out.print("¨€      ¨€");}else
-						if(i==5){System.out.print("¨€      ¨€");}else
-						if(i==6){System.out.print("¨€¨€¨€¨€¨€");}
+						if(i==0){System.out.print("");}else
+						if(i==1){System.out.print("      ");}else
+						if(i==2){System.out.print("      ");}else
+						if(i==3){System.out.print("      ");}else
+						if(i==4){System.out.print("      ");}else
+						if(i==5){System.out.print("      ");}else
+						if(i==6){System.out.print("");}
 						break;
 					case 1:
-						if(i==0){System.out.print("  ¨€¨€   ");}else
-						if(i==1){System.out.print("    ¨€   ");}else
-						if(i==2){System.out.print("    ¨€   ");}else
-						if(i==3){System.out.print("    ¨€   ");}else
-						if(i==4){System.out.print("    ¨€   ");}else
-						if(i==5){System.out.print("    ¨€   ");}else
-						if(i==6){System.out.print(" ¨€¨€¨€¨€");}
+						if(i==0){System.out.print("     ");}else
+						if(i==1){System.out.print("       ");}else
+						if(i==2){System.out.print("       ");}else
+						if(i==3){System.out.print("       ");}else
+						if(i==4){System.out.print("       ");}else
+						if(i==5){System.out.print("       ");}else
+						if(i==6){System.out.print(" ");}
 						break;
 					case 2:
-						if(i==0){System.out.print("¨€¨€¨€¨€¨€");}else
-						if(i==1){System.out.print("        ¨€");}else
-						if(i==2){System.out.print("        ¨€");}else
-						if(i==3){System.out.print("¨€¨€¨€¨€¨€");}else
-						if(i==4){System.out.print("¨€        ");}else
-						if(i==5){System.out.print("¨€        ");}else
-						if(i==6){System.out.print("¨€¨€¨€¨€¨€");}
+						if(i==0){System.out.print("");}else
+						if(i==1){System.out.print("        ");}else
+						if(i==2){System.out.print("        ");}else
+						if(i==3){System.out.print("");}else
+						if(i==4){System.out.print("        ");}else
+						if(i==5){System.out.print("        ");}else
+						if(i==6){System.out.print("");}
 						break;
 					case 3:
-						if(i==0){System.out.print("¨€¨€¨€¨€¨€");}else
-						if(i==1){System.out.print("        ¨€");}else
-						if(i==2){System.out.print("        ¨€");}else
-						if(i==3){System.out.print("¨€¨€¨€¨€¨€");}else
-						if(i==4){System.out.print("        ¨€");}else
-						if(i==5){System.out.print("        ¨€");}else
-						if(i==6){System.out.print("¨€¨€¨€¨€¨€");}
+						if(i==0){System.out.print("");}else
+						if(i==1){System.out.print("        ");}else
+						if(i==2){System.out.print("        ");}else
+						if(i==3){System.out.print("");}else
+						if(i==4){System.out.print("        ");}else
+						if(i==5){System.out.print("        ");}else
+						if(i==6){System.out.print("");}
 						break;
 					case 4:
-						if(i==0){System.out.print("¨€      ¨€");}else
-						if(i==1){System.out.print("¨€      ¨€");}else
-						if(i==2){System.out.print("¨€      ¨€");}else
-						if(i==3){System.out.print("¨€¨€¨€¨€¨€");}else
-						if(i==4){System.out.print("        ¨€");}else
-						if(i==5){System.out.print("        ¨€");}else
-						if(i==6){System.out.print("        ¨€");}
+						if(i==0){System.out.print("      ");}else
+						if(i==1){System.out.print("      ");}else
+						if(i==2){System.out.print("      ");}else
+						if(i==3){System.out.print("");}else
+						if(i==4){System.out.print("        ");}else
+						if(i==5){System.out.print("        ");}else
+						if(i==6){System.out.print("        ");}
 						break;
 					case 5:
-						if(i==0){System.out.print("¨€¨€¨€¨€¨€");}else
-						if(i==1){System.out.print("¨€        ");}else
-						if(i==2){System.out.print("¨€        ");}else
-						if(i==3){System.out.print("¨€¨€¨€¨€¨€");}else
-						if(i==4){System.out.print("        ¨€");}else
-						if(i==5){System.out.print("        ¨€");}else
-						if(i==6){System.out.print("¨€¨€¨€¨€¨€");}
+						if(i==0){System.out.print("");}else
+						if(i==1){System.out.print("        ");}else
+						if(i==2){System.out.print("        ");}else
+						if(i==3){System.out.print("");}else
+						if(i==4){System.out.print("        ");}else
+						if(i==5){System.out.print("        ");}else
+						if(i==6){System.out.print("");}
 						break;
 					case 6:
-						if(i==0){System.out.print("¨€¨€¨€¨€¨€");}else
-						if(i==1){System.out.print("¨€        ");}else
-						if(i==2){System.out.print("¨€        ");}else
-						if(i==3){System.out.print("¨€¨€¨€¨€¨€");}else
-						if(i==4){System.out.print("¨€      ¨€");}else
-						if(i==5){System.out.print("¨€      ¨€");}else
-						if(i==6){System.out.print("¨€¨€¨€¨€¨€");}
+						if(i==0){System.out.print("");}else
+						if(i==1){System.out.print("        ");}else
+						if(i==2){System.out.print("        ");}else
+						if(i==3){System.out.print("");}else
+						if(i==4){System.out.print("      ");}else
+						if(i==5){System.out.print("      ");}else
+						if(i==6){System.out.print("");}
 						break;
 					case 7:
-						if(i==0){System.out.print("¨€¨€¨€¨€¨€");}else
-						if(i==1){System.out.print("        ¨€");}else
-						if(i==2){System.out.print("        ¨€");}else
-						if(i==3){System.out.print("        ¨€");}else
-						if(i==4){System.out.print("        ¨€");}else
-						if(i==5){System.out.print("        ¨€");}else
-						if(i==6){System.out.print("        ¨€");}
+						if(i==0){System.out.print("");}else
+						if(i==1){System.out.print("        ");}else
+						if(i==2){System.out.print("        ");}else
+						if(i==3){System.out.print("        ");}else
+						if(i==4){System.out.print("        ");}else
+						if(i==5){System.out.print("        ");}else
+						if(i==6){System.out.print("        ");}
 						break;
 					case 8:
-						if(i==0){System.out.print("¨€¨€¨€¨€¨€");}else
-						if(i==1){System.out.print("¨€      ¨€");}else
-						if(i==2){System.out.print("¨€      ¨€");}else
-						if(i==3){System.out.print("¨€¨€¨€¨€¨€");}else
-						if(i==4){System.out.print("¨€      ¨€");}else
-						if(i==5){System.out.print("¨€      ¨€");}else
-						if(i==6){System.out.print("¨€¨€¨€¨€¨€");}
+						if(i==0){System.out.print("");}else
+						if(i==1){System.out.print("      ");}else
+						if(i==2){System.out.print("      ");}else
+						if(i==3){System.out.print("");}else
+						if(i==4){System.out.print("      ");}else
+						if(i==5){System.out.print("      ");}else
+						if(i==6){System.out.print("");}
 						break;
 					case 9:
-						if(i==0){System.out.print("¨€¨€¨€¨€¨€");}else
-						if(i==1){System.out.print("¨€      ¨€");}else
-						if(i==2){System.out.print("¨€      ¨€");}else
-						if(i==3){System.out.print("¨€¨€¨€¨€¨€");}else
-						if(i==4){System.out.print("        ¨€");}else
-						if(i==5){System.out.print("        ¨€");}else
-						if(i==6){System.out.print("¨€¨€¨€¨€¨€");}
+						if(i==0){System.out.print("");}else
+						if(i==1){System.out.print("      ");}else
+						if(i==2){System.out.print("      ");}else
+						if(i==3){System.out.print("");}else
+						if(i==4){System.out.print("        ");}else
+						if(i==5){System.out.print("        ");}else
+						if(i==6){System.out.print("");}
 						break;
 				}
 			}

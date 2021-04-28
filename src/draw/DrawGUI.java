@@ -26,13 +26,13 @@ public class DrawGUI extends JFrame {
 	int count = 0;
 	
 	
-	JButton settingButton = new JButton("…Ë÷√");
-	JButton drawButton = new JButton("≥È∫≈");
+	JButton settingButton = new JButton("ËÆæÁΩÆ");
+	JButton drawButton = new JButton("ÊäΩÂè∑");
 	public JLabel jLabel = new JLabel("");
 	JScrollPane jScrollPane = null;
 	
 	public DrawGUI() {
-		super(String.format("≥È∫≈:[%d,%d]  @Version 1.1.2", Main.config.minValue , Main.config.maxValue));
+		super(String.format("ÊäΩÂè∑:[%d,%d]  @Version 1.1.2", Main.config.minValue , Main.config.maxValue));
 		jScrollPane = new JScrollPane(Main.jList);
 		posx = Main.config.shape.x;
 		posy = Main.config.shape.y;
@@ -112,12 +112,12 @@ public class DrawGUI extends JFrame {
 	public void setText(Integer value , Color color) {
 		if (value==null) {
 			if (count<1) {
-				jLabel.setText("“—≥ÈÕÍ£°");
+				jLabel.setText("Â∑≤ÊäΩÂÆåÔºÅ");
 				division = 8;
 				jLabel.setFont(new Font("Dialog",1,(int) (height/division)));
 				jLabel.setForeground(Color.RED);				count++;
 			} else {
-				jLabel.setText("º¥Ω´Ω¯–––¬“ª¬÷");
+				jLabel.setText("Âç≥Â∞ÜËøõË°åÊñ∞‰∏ÄËΩÆ");
 				jLabel.setForeground(Color.RED);
 				count = 0;
 				division = 13;

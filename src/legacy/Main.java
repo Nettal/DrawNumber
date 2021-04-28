@@ -5,7 +5,7 @@ public class Main
 {
  public static void main()
  { 
- System.out.println("°æ±¾£º0.2.1_preview");
+ System.out.println("ç‰ˆæœ¬ï¼š0.2.1_preview");
  Scanner scanner =new Scanner(System.in);
  java.security.SecureRandom RAND =new java.security.SecureRandom();
  boolean iswhile=true;
@@ -14,15 +14,15 @@ public class Main
  String line;
  if(SaveData.isexist()){
  size =SaveData.Load();
- System.out.println("ÒÑ¶ÁÈ¡ÅäÖÃÎÄ¼ş£¬×î´óÖµ:"+size);
+ System.out.println("å·²è¯»å–é…ç½®æ–‡ä»¶ï¼Œæœ€å¤§å€¼:"+size);
  }else{
- System.out.println("ÅäÖÃÎÄ¼ş²»´æÔÚ,ÇëÊäÈë×î´óÖµ");
+ System.out.println("é…ç½®æ–‡ä»¶ä¸å­˜åœ¨,è¯·è¾“å…¥æœ€å¤§å€¼");
  size = scanner.nextInt();
  SaveData.Save(size);
  scanner.nextLine();
  }
  MyArray my =new MyArray(size);
- System.out.println("ÊäÈëÒ»´ÎĞÔ³éÈ¡ÈËÊı\n »Ø³µÄ¬ÈÏÉú³ÉÒ»ÈË\n °´qÍË³ö£¬°´cÉ¾³ıÒÑÉèÖÃµÄÅäÖÃÎÄ¼ş"); 
+ System.out.println("è¾“å…¥ä¸€æ¬¡æ€§æŠ½å–äººæ•°\n å›è½¦é»˜è®¤ç”Ÿæˆä¸€äºº\n æŒ‰qé€€å‡ºï¼ŒæŒ‰cåˆ é™¤å·²è®¾ç½®çš„é…ç½®æ–‡ä»¶"); 
  while(iswhile){
 
  line =scanner.nextLine();
@@ -32,7 +32,7 @@ public class Main
  break;
  }else if(line.equals("c")){
  SaveData.Del();
- System.out.println("ÒÑÉ¾³ıÅäÖÃÎÄ¼ş!");
+ System.out.println("å·²åˆ é™¤é…ç½®æ–‡ä»¶!");
  break;
  }else {
  RenShu=Integer.parseInt(line);
@@ -45,7 +45,7 @@ public class Main
  LJXOutput.Output(((Integer)my.get(random)).intValue());
  my.remove(random);
  if(my.size()==0){
- System.out.println("ÒÑ³éÍêËùÓĞÈË");
+ System.out.println("å·²æŠ½å®Œæ‰€æœ‰äºº");
  iswhile=false;
  break;
  }

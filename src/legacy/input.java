@@ -8,13 +8,13 @@ public class input {
 			str= sca.nextLine();
 			switch (str) {
 			case "a":
-			System.out.println("¹ØÓÚ");
-			System.out.println("°æ±¾£º0.2.2_preview");
-			System.out.println("×÷Õß£º37385@github.com");
+			System.out.println("å…³äº");
+			System.out.println("ç‰ˆæœ¬ï¼š0.2.2_preview");
+			System.out.println("ä½œè€…ï¼š37385@github.com");
 			return 0;
 			case "d":
 			SaveData.Del();
-			System.out.println("ÒÑÉ¾³ıÅäÖÃÎÄ¼ş!");
+			System.out.println("å·²åˆ é™¤é…ç½®æ–‡ä»¶!");
 			return 0;
 			case "/n":
 			return 1;
@@ -22,8 +22,8 @@ public class input {
 			try {
 				return Long.parseLong(str);
 				} catch (Exception e) {
-					System.out.println("°ïÖú");
-					System.out.println("ÊäÈëÒ»´ÎĞÔ³éÈ¡ÈËÊı\n »Ø³µÄ¬ÈÏÉú³ÉÒ»ÈË\n °´qÍË³ö£¬°´cÉ¾³ıÒÑÉèÖÃµÄÅäÖÃÎÄ¼ş"); 
+					System.out.println("å¸®åŠ©");
+					System.out.println("è¾“å…¥ä¸€æ¬¡æ€§æŠ½å–äººæ•°\n å›è½¦é»˜è®¤ç”Ÿæˆä¸€äºº\n æŒ‰qé€€å‡ºï¼ŒæŒ‰cåˆ é™¤å·²è®¾ç½®çš„é…ç½®æ–‡ä»¶"); 
 				return 0;
 				}
 			}

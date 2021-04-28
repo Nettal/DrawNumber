@@ -13,15 +13,15 @@ public class SettingsGUI extends JFrame{
 	private static final long serialVersionUID = -5209828332008414779L;
 	
 	Event event = Main.event;
-	JButton reSetButton = new JButton("ÖØÖÃ");
+	JButton reSetButton = new JButton("é‡ç½®");
 	JButton reSetButton1 = new JButton("");
 	JButton reSetButton2 = new JButton("");//
 	JButton reSetButton3 = new JButton("");
-	static JCheckBox jCheckBox = new JCheckBox("ÔÊĞíÖØ¸´(¼°Ê±ÉúĞ§)", Main.config.repeatable);
-	JLabel about = new JLabel("¹ØÓÚ");
+	static JCheckBox jCheckBox = new JCheckBox("å…è®¸é‡å¤(åŠæ—¶ç”Ÿæ•ˆ)", Main.config.repeatable);
+	JLabel about = new JLabel("å…³äº");
 
 	public SettingsGUI() {
-		super("ÉèÖÃ");
+		super("è®¾ç½®");
 		this.setBounds(Main.drawGUI.getBounds().x, Main.drawGUI.getBounds().y ,440 , 460);
 		this.setResizable(false);
 		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -57,7 +57,7 @@ public class SettingsGUI extends JFrame{
 		jp.add(reSetButton3);
 		about.setBounds(10,80,400, 400);
 		about.setFont(new Font("Dialog",1,20));
-		about.setText("<html>¹ØÓÚ£º<br>LJR github@SnowNF<br>LJX github@37385<br>ÓÊÏä3374353308@qq.com<br>ÓÊÏä3186856156@qq.com<br>license:LGPL v2.1<br>ÏîÄ¿µØÖ·£ºgithub.com/37385/drawnum</html> ");
+		about.setText("<html>å…³äºï¼š<br>LJR github@SnowNF<br>LJX github@37385<br>é‚®ç®±3374353308@qq.com<br>é‚®ç®±3186856156@qq.com<br>license:LGPL v2.1<br>é¡¹ç›®åœ°å€ï¼šgithub.com/37385/drawnum</html> ");
 		jp.add(about);
 		return jp;
 	}

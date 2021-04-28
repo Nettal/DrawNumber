@@ -5,8 +5,8 @@ import javax.swing.JOptionPane;
 public class Options {
 	static boolean isMinCurrect=false;
 	static boolean isMaxCurrect=false;
-	static String minValueinfoString = "ÇëÊäÈë×îĞ¡Öµ(°üº¬)";
-	static String maxValueinfoString = "ÇëÊäÈë×î´óÖµ(°üº¬)";
+	static String minValueinfoString = "è¯·è¾“å…¥æœ€å°å€¼(åŒ…å«)";
+	static String maxValueinfoString = "è¯·è¾“å…¥æœ€å¤§å€¼(åŒ…å«)";
 	static String minrangesString = "";
 	static String maxrangesString = "";
 	static int[] rang = {0,0};
@@ -15,7 +15,7 @@ public class Options {
 	
 	public static int[] getRange() {
 		while(!isMinCurrect) {
-			minrangesString =JOptionPane.showInputDialog(null,minValueinfoString , "³éºÅ",JOptionPane.PLAIN_MESSAGE );
+			minrangesString =JOptionPane.showInputDialog(null,minValueinfoString , "æŠ½å·",JOptionPane.PLAIN_MESSAGE );
 			if (minrangesString==null) {
 				System.exit(0);
 			}
@@ -24,11 +24,11 @@ public class Options {
 				isMinCurrect=true;
 				
 			} catch (Exception e) {
-				minValueinfoString="×îĞ¡Öµ´íÎó";
+				minValueinfoString="æœ€å°å€¼é”™è¯¯";
 				}
 			}
 		while(!isMaxCurrect) {
-			maxrangesString=JOptionPane.showInputDialog(null,maxValueinfoString, "³éºÅ",JOptionPane.PLAIN_MESSAGE );	
+			maxrangesString=JOptionPane.showInputDialog(null,maxValueinfoString, "æŠ½å·",JOptionPane.PLAIN_MESSAGE );	
 			if (maxrangesString==null) {
 				System.exit(0);
 			}
@@ -37,12 +37,12 @@ public class Options {
 				isMaxCurrect=true;
 				
 			} catch (Exception e) {
-				minValueinfoString="×î´óÖµ´íÎó";
+				minValueinfoString="æœ€å¤§å€¼é”™è¯¯";
 				}
 			}
 
 			if (rang[0]>rang[1]) {
-				System.err.println("Options: ´óĞ¡ÖµÓĞÎó£¬ÒÑ¾ÀÕı");
+				System.err.println("Options: å¤§å°å€¼æœ‰è¯¯ï¼Œå·²çº æ­£");
 				int temp = rang[1];
 				rang[1] = rang[0];
 				rang[0] = temp;
@@ -53,7 +53,7 @@ public class Options {
 	}	
 	
 	public static boolean repeatable() {
-		int intRep = JOptionPane.showConfirmDialog(null, "ÊÇ·ñ²»ÖØ¸´£¿", "³éºÅ", JOptionPane.YES_NO_OPTION);
+		int intRep = JOptionPane.showConfirmDialog(null, "æ˜¯å¦ä¸é‡å¤ï¼Ÿ", "æŠ½å·", JOptionPane.YES_NO_OPTION);
 		System.out.println(intRep);
 		if (intRep == 1) {
 			return true;

@@ -5,8 +5,8 @@ import javax.swing.JOptionPane;
 public class Max_min {
 	static boolean isMinCurrect=false;
 	static boolean isMaxCurrect=false;
-	static String minValueinfoString = "ÇëÊäÈë×îĞ¡Öµ(²»º¬)";
-	static String maxValueinfoString = "ÇëÊäÈë×î´óÖµ(°üº¬)";
+	static String minValueinfoString = "è¯·è¾“å…¥æœ€å°å€¼(ä¸å«)";
+	static String maxValueinfoString = "è¯·è¾“å…¥æœ€å¤§å€¼(åŒ…å«)";
 	static String minrangesString = "";
 	static String maxrangesString = "";
 	static int[] rang = {0,0};
@@ -15,28 +15,28 @@ public class Max_min {
 	
 	public static int[] getRange() {
 		while(!isMinCurrect) {
-			minrangesString =JOptionPane.showInputDialog(null,minValueinfoString , "³éºÅ",JOptionPane.PLAIN_MESSAGE );
+			minrangesString =JOptionPane.showInputDialog(null,minValueinfoString , "æŠ½å·",JOptionPane.PLAIN_MESSAGE );
 			try {
 				rang[0] =Integer.parseInt(minrangesString);
 				isMinCurrect=true;
 				
 			} catch (Exception e) {
-				minValueinfoString="×îĞ¡Öµ´íÎó";
+				minValueinfoString="æœ€å°å€¼é”™è¯¯";
 				}
 			}
 		while(!isMaxCurrect) {
-			maxrangesString=JOptionPane.showInputDialog(null,maxValueinfoString, "³éºÅ",JOptionPane.PLAIN_MESSAGE );	
+			maxrangesString=JOptionPane.showInputDialog(null,maxValueinfoString, "æŠ½å·",JOptionPane.PLAIN_MESSAGE );	
 			try {
 				rang[1] =Integer.parseInt(maxrangesString);
 				isMaxCurrect=true;
 				
 			} catch (Exception e) {
-				minValueinfoString="×î´óÖµ´íÎó";
+				minValueinfoString="æœ€å¤§å€¼é”™è¯¯";
 				}
 			}
 
 			if (rang[0]>rang[1]) {
-				System.err.println("Max_min: ´óĞ¡ÖµÓĞÎó£¬ÒÑ¾ÀÕı");
+				System.err.println("Max_min: å¤§å°å€¼æœ‰è¯¯ï¼Œå·²çº æ­£");
 				int temp = rang[1];
 				rang[1] = rang[0];
 				rang[0] = temp;
