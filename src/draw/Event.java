@@ -3,7 +3,6 @@ package draw;
 import java.awt.Color;
 import java.awt.event.*;
 import java.io.File;
-import java.net.http.HttpClient;
 import java.util.ArrayList;
 
 
@@ -16,10 +15,10 @@ public class Event implements ActionListener,WindowListener,WindowStateListener,
 	int windowState = 0;
 	String getInteger;
 	SettingsGUI settingsGUI;
-	public RemainListTitleThread remainListTitle;
+	public ListTitleThread listTitleThread;
 
-	public ArrayList<String> selectedList = new ArrayList<String>();
-	ArrayList<String> selectedList4Rep = new ArrayList<String>();
+	public ArrayList<String> selectedList = new ArrayList<>();
+	ArrayList<String> selectedList4Rep = new ArrayList<>();
 	public Event() {
 	}
 
@@ -28,18 +27,13 @@ public class Event implements ActionListener,WindowListener,WindowStateListener,
 
 		if (e.getActionCommand().equals("settings")) {
 			Main.drawGUI.setAlwaysOnTop(false);
-			SwingUtilities.invokeLater(new Runnable() {
-				@Override
-				public void run() {
-					settingsGUI = new SettingsGUI();
-				}
-			});
+			SwingUtilities.invokeLater(() -> settingsGUI = new SettingsGUI());
 		}
 		if(e.getActionCommand().equals("draw")) {
 			this.onDraw();
-			if (remainListTitle == null) {
-				remainListTitle = new RemainListTitleThread();
-				remainListTitle.start();
+			if (listTitleThread == null) {
+				listTitleThread = new ListTitleThread();
+				listTitleThread.start();
 			}
 		}
 		if (e.getActionCommand().equals("reset")) {
@@ -60,13 +54,13 @@ public class Event implements ActionListener,WindowListener,WindowStateListener,
 		if (Main.config.repeatable) {
 			getInteger = Main.array_Rep.getStr_without_index_Rep();
 		if (!(getInteger == null)) {
-			selectedList4Rep.add(0,(selectedList4Rep.size()+1)+":"+ getInteger.toString());
+			selectedList4Rep.add(0,(selectedList4Rep.size()+1)+":"+ getInteger);
 			Main.drawGUI.setJScrollPaneContent(selectedList4Rep.toArray(new String[selectedList4Rep.size()]));//array_list转换成字符串组
 		}
 		}else {
 			getInteger = Main.array.getStr_without_index();
 			if (!(getInteger == null)) {
-				selectedList.add(0,(selectedList.size()+1)+":"+ getInteger.toString());
+				selectedList.add(0,(selectedList.size()+1)+":"+ getInteger);
 				Main.drawGUI.setJScrollPaneContent(selectedList.toArray(new String[selectedList.size()]));//array_list转换成字符串组
 			}
 		}
@@ -128,12 +122,7 @@ public class Event implements ActionListener,WindowListener,WindowStateListener,
 			actionTime = System.currentTimeMillis();
 		}
 		if(isFirst){
-			new Thread(new Runnable() {
-				@Override
-				public void run() {
-					setRep();
-				}
-			}).start();
+			new Thread(this::setRep).start();
 //			System.err.println("DEBUG!");
 			isFirst = false;
 		}
@@ -161,13 +150,13 @@ public class Event implements ActionListener,WindowListener,WindowStateListener,
 			if (selectedList4Rep.isEmpty()) return;
 			//截取字符串
 			String cutStr = selectedList4Rep.get(index);
-			Main.drawGUI.setText(cutStr.substring(cutStr.indexOf(":")+1, cutStr.length()) , Color.BLUE);
+			Main.drawGUI.setText(cutStr.substring(cutStr.indexOf(":")+1) , Color.BLUE);
 
 		}else {
 			if (selectedList.isEmpty()) return;
 			//截取字符串
 			String cutStr = selectedList.get(index);
-			Main.drawGUI.setText(cutStr.substring(cutStr.indexOf(":")+1, cutStr.length()) , Color.BLUE);
+			Main.drawGUI.setText(cutStr.substring(cutStr.indexOf(":")+1) , Color.BLUE);
 		}
 	}
 
@@ -183,9 +172,9 @@ public class Event implements ActionListener,WindowListener,WindowStateListener,
 	@Override
 	public void windowLostFocus(WindowEvent e) { }
 
-	public class RemainListTitleThread extends Thread{
+	public class ListTitleThread extends Thread{
 		boolean running;
-		public RemainListTitleThread() {
+		public ListTitleThread() {
 			running = true;
 		}
 
@@ -221,7 +210,7 @@ public class Event implements ActionListener,WindowListener,WindowStateListener,
 
 		public void stopSelf(){
 			running =  false;
-			Main.event.remainListTitle = null;
+			Main.event.listTitleThread = null;
 		}
 	}
 }

@@ -44,12 +44,7 @@ public class Main {
 			}
 		}
 		loadNum(list);
-		SwingUtilities.invokeLater(new Runnable() {
-			@Override
-			public void run() {
-				drawGUI = new DrawGUI();
-			}
-		});
+		SwingUtilities.invokeLater(() -> drawGUI = new DrawGUI());
 	}
 
 	public static void loadNum(String[] str) {
@@ -77,8 +72,8 @@ public class Main {
 				array_Rep = new Array(str);
 			blendList(array_Rep);
 		}
-			if (event.remainListTitle != null)
-				Main.event.remainListTitle.stopSelf();
+			if (event.listTitleThread != null)
+				Main.event.listTitleThread.stopSelf();
 		} catch (Throwable e) {
 			System.err.println("Main: Create an array error");
 			e.printStackTrace();
@@ -103,7 +98,7 @@ public class Main {
 class ThreadDialog extends Thread
 {
 
-    private String messages = "";//提示框的提示信息
+    private String messages;//提示框的提示信息
     private JFrame parentFrame = null;//提示框的父窗体
     private JDialog clueDialog = null;// “线程正在运行”提示框
 

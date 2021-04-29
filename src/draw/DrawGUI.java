@@ -1,8 +1,7 @@
 package draw;
 
 
-import java.awt.Color;
-import java.awt.Font;
+import java.awt.*;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.util.ArrayList;
@@ -14,15 +13,14 @@ public class DrawGUI extends JFrame {
 	private static final long serialVersionUID = -8854186460449111662L;
 	public Color color;
 	public JLabel jLabel = new JLabel("");
-	double division = 2;
-	int posX = 10;
-	int posY = 10;
-	int width = 600;
-	int height = 450;
+	int posX;
+	int posY;
+	int width;
+	int height;
 	int count = 0;
 	JButton settingButton = new JButton("设置");
-	JButton drawButton = new JButton("抽号");
-	JScrollPane jScrollPane = null;
+	JButton drawButton = new JButton("抽");
+	JScrollPane jScrollPane;
 	
 	public DrawGUI() {
 		super(Main.list == null?
@@ -91,7 +89,7 @@ public class DrawGUI extends JFrame {
 	
 	JList<Integer> jList() {
 		Integer[] list = {};
-		JList<Integer> jList = new JList<Integer>(list);
+		JList<Integer> jList = new JList<>(list);
 		jList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		jList.addKeyListener(Main.event); 
 		jList.addListSelectionListener(Main.event);
@@ -99,7 +97,7 @@ public class DrawGUI extends JFrame {
 	}
 	
 	void setJScrollPaneContent(String[] strings ) {
-		Main.Current_jList = new JList<String>(strings);
+		Main.Current_jList = new JList<>(strings);
 		Main.Current_jList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		Main.Current_jList.addKeyListener(Main.event);
 		Main.Current_jList.addListSelectionListener(Main.event);
@@ -116,52 +114,33 @@ public class DrawGUI extends JFrame {
 		settingButton.setBounds(0, 0, width/20, height/20);
 		drawButton.setFont(new Font("Dialog", Font.BOLD,(Math.min(height, width)/5)));
 		drawButton.setBounds(width/20, height/20, width/2, height/3);
-		jLabel.setBounds(width/20, height/3+height/20, width/2, height/2);
-		jLabel.setFont(new Font("Dialog", Font.BOLD,(int) (Math.min(height, width)/division)));
+		jLabel.setBounds(width/20, height/3+height/20, (int) (width*1.3), height/2);
+		jLabel.setFont(new Font("Dialog", Font.BOLD,(int) (Math.min(jLabel.getWidth() , jLabel.getHeight())*.4)));
 		jScrollPane.setBounds(width/10+width/2,height/20 , width/3, height-height/5);
 	}
 	
 	public void clear_list() {
-				Main.event.selectedList = new  ArrayList<String>();
-				Main.Current_jList = new JList<String>() ;
+				Main.event.selectedList = new ArrayList<>();
+				Main.Current_jList = new JList<>() ;
 	}
 
 	public void setText(String value , Color color) {
+		jLabel.setFont(new Font("Dialog", Font.BOLD,(int) (Math.min(jLabel.getWidth() , jLabel.getHeight())*.4)));
 		if (value==null) {
 			if (count<1) {
-				jLabel.setText("已抽完！");
-				division = 8;
-				jLabel.setFont(new Font("Dialog", Font.BOLD,(int) (Math.min(height, width)/division)));
+				jLabel.setText("已抽完!");
 				jLabel.setForeground(Color.RED);
 				count++;
 			} else {
-				jLabel.setText("即将进行新一轮");
+				jLabel.setText("新一轮!");
 				jLabel.setForeground(Color.RED);
 				count = 0;
-				division = 13;
-				jLabel.setFont(new Font("Dialog", Font.BOLD,(int) (Math.min(height, width)/division)));
 				clear_list();
 				Main.loadNum(Main.list);
 			}
 		} else {
-			if (getLength(value)==2) {
-				division = 3.5;
-			} else if (getLength(value)==3) {
-				division = 4;
-			}else{
-				division = getLength(value);
-			}
-
-		jLabel.setFont(new Font("Dialog", Font.BOLD,(int) (Math.min(height, width)/division)));
-		jLabel.setText(value);
-		jLabel.setForeground(this.color == null?color:new Color(Integer.MAX_VALUE - this.color.getRGB() - color.getRGB()));
+			jLabel.setText(value);
+			jLabel.setForeground(this.color == null?color:new Color(Integer.MAX_VALUE - this.color.getRGB() - color.getRGB()));
 		}
-	}
-
-	private int getLength(String num){
-		int ret = num.length();
-		if(ret == 1)
-			return 2;
-		return ret;
 	}
 }
