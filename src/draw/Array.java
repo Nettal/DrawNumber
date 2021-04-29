@@ -28,7 +28,7 @@ public class Array extends ArrayList<String> {
 		try {
 			get((int) (this.size()*rand.nextDouble()));
 		} catch (Exception e) {
-			// TODO: handle exception
+			e.printStackTrace();
 		}
 	}
 
@@ -38,6 +38,11 @@ public class Array extends ArrayList<String> {
 		super(s.length);
 		this.isStr = true;
 		this.addAll(Arrays.asList(s));
+		try {
+			get((int) (this.size()*rand.nextDouble()));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	//字符串
