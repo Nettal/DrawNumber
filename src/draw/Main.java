@@ -29,17 +29,17 @@ public class Main {
 		System.out.println(
 				"usage:\n [opinion] [args] \n" +
 				"  available opinions:\n" +
-		        "    legacy : use old draw num\n" +
-				"    list : use String list instead of pure-integers\n"+
+		        "    -legacy : use old draw num\n" +
+				"    -list : use String list instead of pure-integers\n"+
 				"       example command line: \n" +
-				"       java -jar *.jar list: aaa;bbb;ccc;ddd;eee\n");
+				"       java -jar $ThisFile.jar -list aaa;bbb;ccc;ddd;eee\n");
 
 
 		for (int i = 0; i < args.length; i++) {
-			if (args[i].equals("legacy")){
+			if (args[i].equals("-legacy")){
 				legacy.Main.main();
 				return;
-			}else if(args[i].equals("list:")){
+			}else if(args[i].equals("-list")){
 				list = args[i + 1].split(";");
 			}
 		}
@@ -47,7 +47,7 @@ public class Main {
 		SwingUtilities.invokeLater(new Runnable() {
 			@Override
 			public void run() {
-				drawGUI =new DrawGUI();
+				drawGUI = new DrawGUI();
 			}
 		});
 	}
@@ -77,6 +77,8 @@ public class Main {
 				array_Rep = new Array(str);
 			blendList(array_Rep);
 		}
+			if (event.remainListTitle != null)
+				Main.event.remainListTitle.stopSelf();
 		} catch (Throwable e) {
 			System.err.println("Main: Create an array error");
 			e.printStackTrace();

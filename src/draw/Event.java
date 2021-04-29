@@ -3,6 +3,7 @@ package draw;
 import java.awt.Color;
 import java.awt.event.*;
 import java.io.File;
+import java.net.http.HttpClient;
 import java.util.ArrayList;
 
 
@@ -15,11 +16,11 @@ public class Event implements ActionListener,WindowListener,WindowStateListener,
 	int windowState = 0;
 	String getInteger;
 	SettingsGUI settingsGUI;
+	public RemainListTitleThread remainListTitle;
 
-	public ArrayList<String> arrayList = new ArrayList<String>();
-	ArrayList<String> arrayList_Rep = new ArrayList<String>();
+	public ArrayList<String> selectedList = new ArrayList<String>();
+	ArrayList<String> selectedList4Rep = new ArrayList<String>();
 	public Event() {
-		// TODO 自动生成的构造函数存根
 	}
 
 	@Override
@@ -36,6 +37,10 @@ public class Event implements ActionListener,WindowListener,WindowStateListener,
 		}
 		if(e.getActionCommand().equals("draw")) {
 			this.onDraw();
+			if (remainListTitle == null) {
+				remainListTitle = new RemainListTitleThread();
+				remainListTitle.start();
+			}
 		}
 		if (e.getActionCommand().equals("reset")) {
 			//delete file
@@ -55,28 +60,24 @@ public class Event implements ActionListener,WindowListener,WindowStateListener,
 		if (Main.config.repeatable) {
 			getInteger = Main.array_Rep.getStr_without_index_Rep();
 		if (!(getInteger == null)) {
-			arrayList_Rep.add(0,(arrayList_Rep.size()+1)+":"+ getInteger.toString());
-			Main.drawGUI.setJScrollPaneContent(arrayList_Rep.toArray(new String[arrayList_Rep.size()]));//array_list转换成字符串组
+			selectedList4Rep.add(0,(selectedList4Rep.size()+1)+":"+ getInteger.toString());
+			Main.drawGUI.setJScrollPaneContent(selectedList4Rep.toArray(new String[selectedList4Rep.size()]));//array_list转换成字符串组
 		}
 		}else {
 			getInteger = Main.array.getStr_without_index();
 			if (!(getInteger == null)) {
-				arrayList.add(0,(arrayList.size()+1)+":"+ getInteger.toString());
-				Main.drawGUI.setJScrollPaneContent(arrayList.toArray(new String[arrayList.size()]));//array_list转换成字符串组
+				selectedList.add(0,(selectedList.size()+1)+":"+ getInteger.toString());
+				Main.drawGUI.setJScrollPaneContent(selectedList.toArray(new String[selectedList.size()]));//array_list转换成字符串组
 			}
 		}
 		Main.drawGUI.setText(getInteger , Color.BLACK);
 	}
 
 	@Override
-	public void windowOpened(WindowEvent e) {
-		// TODO 自动生成的方法存根
-		
-	}
+	public void windowOpened(WindowEvent e) { }
 
 	@Override
 	public void windowClosing(WindowEvent e) {
-		// TODO 自动生成的方法存根
 		if(settingsGUI != null){
 			settingsGUI.dispose();
 			settingsGUI = null;
@@ -85,34 +86,15 @@ public class Event implements ActionListener,WindowListener,WindowStateListener,
 	}
 
 	@Override
-	public void windowClosed(WindowEvent e) {
-		// TODO 自动生成的方法存根
-		
-	}
-
+	public void windowClosed(WindowEvent e) {}
 	@Override
-	public void windowIconified(WindowEvent e) {
-		// TODO 自动生成的方法存根
-		
-	}
-
+	public void windowIconified(WindowEvent e) {}
 	@Override
-	public void windowDeiconified(WindowEvent e) {
-		// TODO 自动生成的方法存根
-		
-	}
-
+	public void windowDeiconified(WindowEvent e) {}
 	@Override
-	public void windowActivated(WindowEvent e) {
-		// TODO 自动生成的方法存根
-		
-	}
-
+	public void windowActivated(WindowEvent e) {}
 	@Override
-	public void windowDeactivated(WindowEvent e) {
-		// TODO 自动生成的方法存根
-		
-	}
+	public void windowDeactivated(WindowEvent e) { }
 
 	void onClose() {
 		if (!(windowState == 6)) {
@@ -123,11 +105,8 @@ public class Event implements ActionListener,WindowListener,WindowStateListener,
 
 	@Override
 	public void windowStateChanged(WindowEvent e) {
-		// TODO 自动生成的方法存根
 		windowState = e.getNewState();
 	}
-
-
 
 	@Override
 	public void itemStateChanged(ItemEvent e) {
@@ -165,35 +144,29 @@ public class Event implements ActionListener,WindowListener,WindowStateListener,
 	}
 
 	@Override
-	public void keyTyped(KeyEvent e) {
-		// TODO 自动生成的方法存根
-		
-	}
+	public void keyTyped(KeyEvent e) { }
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		// TODO 自动生成的方法存根
 		onDraw();
 	}
 
 	@Override
-	public void keyReleased(KeyEvent e) {
-	}
+	public void keyReleased(KeyEvent e) { }
 
 	@Override
 	public void valueChanged(ListSelectionEvent e) {
-		// TODO 自动生成的方法存根
 		int index = Main.Current_jList.getSelectedIndex();
 		if (Main.config.repeatable) {
-			if (arrayList_Rep.isEmpty()) return;
+			if (selectedList4Rep.isEmpty()) return;
 			//截取字符串
-			String cutStr = arrayList_Rep.get(index);
+			String cutStr = selectedList4Rep.get(index);
 			Main.drawGUI.setText(cutStr.substring(cutStr.indexOf(":")+1, cutStr.length()) , Color.BLUE);
 
 		}else {
-			if (arrayList.isEmpty()) return;
+			if (selectedList.isEmpty()) return;
 			//截取字符串
-			String cutStr = arrayList.get(index);
+			String cutStr = selectedList.get(index);
 			Main.drawGUI.setText(cutStr.substring(cutStr.indexOf(":")+1, cutStr.length()) , Color.BLUE);
 		}
 	}
@@ -208,7 +181,47 @@ public class Event implements ActionListener,WindowListener,WindowStateListener,
 	}
 
 	@Override
-	public void windowLostFocus(WindowEvent e) {
+	public void windowLostFocus(WindowEvent e) { }
 
+	public class RemainListTitleThread extends Thread{
+		boolean running;
+		public RemainListTitleThread() {
+			running = true;
+		}
+
+		@Override
+		public void run() {
+			String title = Main.drawGUI.getTitle();
+			try {
+				Thread.sleep(3000);
+			} catch (InterruptedException interruptedException) {
+				System.out.println(interruptedException); }
+
+			for (int i = 0; running && getCurrentList().size() != 0; ) {
+				try {
+					Thread.sleep(2000);
+				} catch (InterruptedException interruptedException) {
+					System.out.println(interruptedException); }
+				StringBuilder buffer = new StringBuilder();
+				for (int j = 0; j < Math.min(getCurrentList().size(), 6); j++) {
+					if (i >= getCurrentList().size()) {
+						i = 0;
+					}
+					buffer.append(String.format(" [%s]", getCurrentList().get(i)));
+					i++;
+				}
+				Main.drawGUI.setTitle((Main.config.repeatable ? "All:" : "Remain:") + buffer.toString());
+			}
+			Main.drawGUI.setTitle(title);
+		}
+
+		public ArrayList getCurrentList(){
+			return Main.config.repeatable ? Main.array_Rep:Main.array;
+		}
+
+		public void stopSelf(){
+			running =  false;
+			Main.event.remainListTitle = null;
+		}
 	}
 }

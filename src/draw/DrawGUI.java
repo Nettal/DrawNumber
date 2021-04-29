@@ -12,23 +12,22 @@ import javax.swing.*;
 public class DrawGUI extends JFrame {
 	
 	private static final long serialVersionUID = -8854186460449111662L;
+	public Color color;
+	public JLabel jLabel = new JLabel("");
 	double division = 2;
 	int posX = 10;
 	int posY = 10;
 	int width = 600;
 	int height = 450;
 	int count = 0;
-	public Color color;
-
 	JButton settingButton = new JButton("设置");
 	JButton drawButton = new JButton("抽号");
-	public JLabel jLabel = new JLabel("");
 	JScrollPane jScrollPane = null;
 	
 	public DrawGUI() {
 		super(Main.list == null?
-				String.format("抽号:[%d,%d]  @Version 1.2", Main.config.minValue , Main.config.maxValue):
-				String.format("抽号:列表模式,共%d个 @Version 1.2",Main.list.length));
+				String.format("抽号:[%d,%d]  @Version 1.2.1", Main.config.minValue , Main.config.maxValue):
+				String.format("抽号:列表模式,共%d个 @Version 1.2.1",Main.list.length));
 		jScrollPane = new JScrollPane(Main.jList);
 		posX = Main.config.shape.x;
 		posY = Main.config.shape.y;
@@ -123,7 +122,7 @@ public class DrawGUI extends JFrame {
 	}
 	
 	public void clear_list() {
-				Main.event.arrayList = new  ArrayList<String>();
+				Main.event.selectedList = new  ArrayList<String>();
 				Main.Current_jList = new JList<String>() ;
 	}
 
@@ -133,7 +132,8 @@ public class DrawGUI extends JFrame {
 				jLabel.setText("已抽完！");
 				division = 8;
 				jLabel.setFont(new Font("Dialog", Font.BOLD,(int) (Math.min(height, width)/division)));
-				jLabel.setForeground(Color.RED);				count++;
+				jLabel.setForeground(Color.RED);
+				count++;
 			} else {
 				jLabel.setText("即将进行新一轮");
 				jLabel.setForeground(Color.RED);
