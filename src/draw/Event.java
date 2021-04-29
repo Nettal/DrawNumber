@@ -174,19 +174,21 @@ public class Event implements ActionListener,WindowListener,WindowStateListener,
 
 	public class ListTitleThread extends Thread{
 		boolean running;
+		String title;
 		public ListTitleThread() {
 			running = true;
+			title = Main.drawGUI.getTitle();
 		}
 
 		@Override
 		public void run() {
-			String title = Main.drawGUI.getTitle();
 			try {
 				Thread.sleep(3000);
 			} catch (InterruptedException interruptedException) {
 				System.out.println(interruptedException); }
 
-			for (int i = 0; running && getCurrentList().size() != 0; ) {
+			int i = 0;
+			while (true) {
 				try {
 					Thread.sleep(2000);
 				} catch (InterruptedException interruptedException) {
@@ -199,9 +201,13 @@ public class Event implements ActionListener,WindowListener,WindowStateListener,
 					buffer.append(String.format(" [%s]", getCurrentList().get(i)));
 					i++;
 				}
+				if (getCurrentList().size() == 0){
+					Main.drawGUI.setTitle(title);
+					break; }
+				if (!running)
+					break;
 				Main.drawGUI.setTitle((Main.config.repeatable ? "All:" : "Remain:") + buffer.toString());
 			}
-			Main.drawGUI.setTitle(title);
 		}
 
 		public ArrayList getCurrentList(){
@@ -210,6 +216,7 @@ public class Event implements ActionListener,WindowListener,WindowStateListener,
 
 		public void stopSelf(){
 			running =  false;
+			Main.drawGUI.setTitle(title);
 			Main.event.listTitleThread = null;
 		}
 	}
