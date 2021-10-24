@@ -126,7 +126,7 @@ public class DrawGUI extends JFrame {
 	public void setText(String value , boolean isSelected) {
 		Font font;
 		if (isSelected||value==null)
-			font = new Font(null, Font.BOLD | Font.ITALIC, (int) (Math.min(jLabel.getWidth(), jLabel.getHeight()) * .4));
+			font = new Font(null, Font.ITALIC, (int) (Math.min(jLabel.getWidth(), jLabel.getHeight()) * .4));
 		else
 			font = new Font(null, Font.BOLD, (int) (Math.min(jLabel.getWidth(), jLabel.getHeight()) * .4));
 		jLabel.setFont(font);

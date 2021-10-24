@@ -210,7 +210,7 @@ public class Event implements ActionListener,WindowListener,WindowStateListener,
 			}
 		}
 
-		public ArrayList getCurrentList(){
+		public Array getCurrentList(){
 			return Main.config.repeatable ? Main.array_Rep:Main.array;
 		}
 

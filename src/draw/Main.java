@@ -62,7 +62,7 @@ public class Main {
 					array = new Array(config.minValue, config.maxValue);
 				else
 					array = new Array(str);
-				blendList(array);
+				array.blendList();
 			}
 		}else {
 			System.out.println("Main: loading repeatable array..");
@@ -70,7 +70,7 @@ public class Main {
 				array_Rep = new Array(config.minValue, config.maxValue);
 			else
 				array_Rep = new Array(str);
-			blendList(array_Rep);
+				array_Rep.blendList();
 		}
 			if (event.listTitleThread != null)
 				Main.event.listTitleThread.stopSelf();
@@ -84,15 +84,7 @@ public class Main {
 			isLoading = false;
 	}
 	
-	public static void blendList(Array a) {
-		int len = a.size();
-		for (int i = 0; i < len; i++) {
-			int index = (int)(Math.random()*len);
-			String tempInteger = a.get(i);
-			a.set(i, a.get(index));
-			a.set(index, tempInteger);
-		}
-	}
+
 }
 
 class ThreadDialog extends Thread

@@ -59,6 +59,7 @@ public class Array extends ArrayList<String> {
 
 	//字符串
 	private String getStr_Rep(int index){
+		changeLocation(index,index);
 		try{
 			return this.get(index);
 		}catch (Exception e){
@@ -82,6 +83,7 @@ public class Array extends ArrayList<String> {
 
 	//整数
 	private String getInt_Rep(int index) {
+		changeLocation(index,index);
 		try {
 			int temp = Integer.parseInt(this.get(index));
 			return String.valueOf(temp+minValue-1);
@@ -104,5 +106,29 @@ public class Array extends ArrayList<String> {
 			return getStr_Rep((int) (this.size()*rand.nextDouble()));
 		else
 			return getInt_Rep((int) (this.size()*rand.nextDouble()));
+	}
+
+	private void swapLocation(int a,int b){
+		String temp = this.get(a);
+		this.set(a, this.get(b));
+		this.set(b, temp);
+	}
+
+	public void blendList() {
+		int len = this.size();
+		for (int i = 0; i < len; i++) {
+			int index = (int)(Math.random()*len);
+			swapLocation(i,index);
+		}
+	}
+
+	private void changeLocation(int index,int times){
+		int src = index;
+		int dest;
+		for (int i = 0; i < times; i++) {
+			dest = (int) (this.size()*Math.random());
+			swapLocation(src,dest);
+			src = dest;
+		}
 	}
 }	
