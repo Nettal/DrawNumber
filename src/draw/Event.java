@@ -64,7 +64,7 @@ public class Event implements ActionListener,WindowListener,WindowStateListener,
 				Main.drawGUI.setJScrollPaneContent(selectedList.toArray(new String[selectedList.size()]));//array_list转换成字符串组
 			}
 		}
-		Main.drawGUI.setText(getInteger , Color.BLACK);
+		Main.drawGUI.setText(getInteger , false);
 	}
 
 	@Override
@@ -150,13 +150,13 @@ public class Event implements ActionListener,WindowListener,WindowStateListener,
 			if (selectedList4Rep.isEmpty()) return;
 			//截取字符串
 			String cutStr = selectedList4Rep.get(index);
-			Main.drawGUI.setText(cutStr.substring(cutStr.indexOf(":")+1) , Color.BLUE);
+			Main.drawGUI.setText(cutStr.substring(cutStr.indexOf(":")+1) , true);
 
 		}else {
 			if (selectedList.isEmpty()) return;
 			//截取字符串
 			String cutStr = selectedList.get(index);
-			Main.drawGUI.setText(cutStr.substring(cutStr.indexOf(":")+1) , Color.BLUE);
+			Main.drawGUI.setText(cutStr.substring(cutStr.indexOf(":")+1) , true);
 		}
 	}
 

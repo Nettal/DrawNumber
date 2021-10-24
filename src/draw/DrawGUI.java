@@ -1,15 +1,14 @@
 package draw;
 
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.util.ArrayList;
 
-import javax.swing.*;
-
 public class DrawGUI extends JFrame {
-	
+
 	private static final long serialVersionUID = -8854186460449111662L;
 	public Color color;
 	public JLabel jLabel = new JLabel("");
@@ -21,7 +20,7 @@ public class DrawGUI extends JFrame {
 	JButton settingButton = new JButton("设置");
 	JButton drawButton = new JButton("抽");
 	JScrollPane jScrollPane;
-	
+
 	public DrawGUI() {
 		super(Main.list == null?
 				String.format("抽号:[%d,%d]  @Version 1.2.1", Main.config.minValue , Main.config.maxValue):
@@ -71,8 +70,8 @@ public class DrawGUI extends JFrame {
 			Main.Current_jList.setForeground(new Color(Integer.MAX_VALUE - this.color.getRGB()));
 		}
 	}
-	
-	
+
+
 	JPanel getJPanel() {
 		JPanel jp = new JPanel(null);
 		jp.setOpaque(false);
@@ -86,16 +85,16 @@ public class DrawGUI extends JFrame {
 		jp.add(jScrollPane);
 		return jp;
 	}
-	
+
 	JList<Integer> jList() {
 		Integer[] list = {};
 		JList<Integer> jList = new JList<>(list);
 		jList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		jList.addKeyListener(Main.event); 
+		jList.addKeyListener(Main.event);
 		jList.addListSelectionListener(Main.event);
 		return jList;
 	}
-	
+
 	void setJScrollPaneContent(String[] strings ) {
 		Main.Current_jList = new JList<>(strings);
 		Main.Current_jList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -107,7 +106,7 @@ public class DrawGUI extends JFrame {
 		}
 		jScrollPane.setViewportView(Main.Current_jList);
 	}
-	
+
 	public void setSize(int width , int height) {
 		this.width = width;
 		this.height = height;
@@ -118,29 +117,38 @@ public class DrawGUI extends JFrame {
 		jLabel.setFont(new Font("Dialog", Font.BOLD,(int) (Math.min(jLabel.getWidth() , jLabel.getHeight())*.4)));
 		jScrollPane.setBounds(width/10+width/2,height/20 , width/3, height-height/5);
 	}
-	
+
 	public void clear_list() {
 				Main.event.selectedList = new ArrayList<>();
 				Main.Current_jList = new JList<>() ;
 	}
 
-	public void setText(String value , Color color) {
-		jLabel.setFont(new Font("Dialog", Font.BOLD,(int) (Math.min(jLabel.getWidth() , jLabel.getHeight())*.4)));
+	public void setText(String value , boolean isSelected) {
+		Font font;
+		if (isSelected||value==null)
+			font = new Font(null, Font.BOLD | Font.ITALIC, (int) (Math.min(jLabel.getWidth(), jLabel.getHeight()) * .4));
+		else
+			font = new Font(null, Font.BOLD, (int) (Math.min(jLabel.getWidth(), jLabel.getHeight()) * .4));
+		jLabel.setFont(font);
 		if (value==null) {
 			if (count<1) {
 				jLabel.setText("已抽完!");
-				jLabel.setForeground(Color.RED);
+				jLabel.setForeground(colorInversion());
 				count++;
 			} else {
 				jLabel.setText("新一轮!");
-				jLabel.setForeground(Color.RED);
+				jLabel.setForeground(colorInversion());
 				count = 0;
 				clear_list();
 				Main.loadNum(Main.list);
 			}
 		} else {
 			jLabel.setText(value);
-			jLabel.setForeground(this.color == null?color:new Color(Integer.MAX_VALUE - this.color.getRGB() - color.getRGB()));
+			jLabel.setForeground(colorInversion());
 		}
+	}
+
+	private Color colorInversion(){
+		return new Color(Integer.MAX_VALUE - this.color.getRGB() - Color.BLACK.getRGB());
 	}
 }
