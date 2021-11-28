@@ -51,10 +51,19 @@ public class Main {
             if (!config.repeatable) {
                 if (array == null || array.size() == 0) {//满足其一
                     System.out.println("Main: loading unrepeatable array..");
-                    if (str == null)
-                        array = new Array(config.minValue, config.maxValue);
-                    else
-                        array = new Array(str);
+                    if ((!config.saveUnusedList) || config.array == null || config.array.size() == 0
+                            || (array != null && array.size() == 0)) {
+                        System.out.println("Main: create a new unrepeatable array..");
+                        if (str == null)
+                            array = new Array(config.minValue, config.maxValue);
+                        else
+                            array = new Array(str);
+
+                        config.array = array;
+                    } else {
+                        array = config.array;
+                        System.out.println("Main: use saved unrepeatable array..");
+                    }
                     array.blendList();
                 }
             } else {

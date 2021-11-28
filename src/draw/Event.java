@@ -102,6 +102,8 @@ public class Event implements ActionListener, WindowListener, WindowStateListene
         if (!(windowState == 6)) {
             Main.config.shape = Main.drawGUI.getBounds();
         }
+        if (!Main.config.saveUnusedList)
+            Main.config.array = null;
         new ObjectLoader("DATA").saveConfig(Main.config);
     }
 
@@ -117,7 +119,8 @@ public class Event implements ActionListener, WindowListener, WindowStateListene
     }
 
     private void setRep() {
-        Main.config.repeatable = SettingsGUI.jCheckBox.isSelected();
+        Main.config.repeatable = settingsGUI.repeat.isSelected();
+        settingsGUI.saveUnusedList.setEnabled(!settingsGUI.repeat.isSelected());
         new ObjectLoader("DATA").saveConfig(Main.config);
         Main.loadNum(Main.list);
     }

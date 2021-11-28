@@ -16,4 +16,6 @@ public class Config implements Serializable {
     public Rectangle shape = null;
     public boolean repeatable = false;
     public int themeColor = Integer.MAX_VALUE;
+    public Array array = null;
+    public boolean saveUnusedList = true;
 }

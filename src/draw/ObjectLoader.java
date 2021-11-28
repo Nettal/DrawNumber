@@ -29,6 +29,8 @@ public class ObjectLoader {
 					tempConfig.minValue = value[0];
 					tempConfig.maxValue = value[1];
 					tempConfig.repeatable = Options.repeatable();
+					tempConfig.array = null;
+					tempConfig.saveUnusedList = true;
 					Main.isMessageOnTop = true;
 					tempConfig.shape = new Rectangle(100, 100, 600, 450);
 					saveConfig(tempConfig);

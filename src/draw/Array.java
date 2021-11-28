@@ -15,7 +15,7 @@ public class Array extends ArrayList<String> {
 
     //整数
     public Array(int minValue, int maxValue) {
-        super(maxValue - minValue);
+        super(2 * (maxValue - minValue));
         this.isStr = false;
 //		this.maxValue = maxValue;
         this.minValue = minValue;
