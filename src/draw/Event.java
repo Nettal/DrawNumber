@@ -172,7 +172,7 @@ public class Event implements ActionListener,WindowListener,WindowStateListener,
 	@Override
 	public void windowLostFocus(WindowEvent e) { }
 
-	public class ListTitleThread extends Thread{
+	public static class ListTitleThread extends Thread{
 		boolean running;
 		String title;
 		public ListTitleThread() {
@@ -193,6 +193,8 @@ public class Event implements ActionListener,WindowListener,WindowStateListener,
 					Thread.sleep(2000);
 				} catch (InterruptedException interruptedException) {
 					System.out.println(interruptedException); }
+				if (getCurrentList().size()>6 && !Main.config.repeatable){
+					continue;}
 				StringBuilder buffer = new StringBuilder();
 				for (int j = 0; j < Math.min(getCurrentList().size(), 6); j++) {
 					if (i >= getCurrentList().size()) {

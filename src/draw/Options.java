@@ -53,8 +53,8 @@ public class Options {
 	}	
 	
 	public static boolean repeatable() {
-		int intRep = JOptionPane.showConfirmDialog(null, "是否不重复？", "抽号", JOptionPane.YES_NO_OPTION);
+		int intRep = JOptionPane.showConfirmDialog(null, "是否重复？", "抽号", JOptionPane.YES_NO_OPTION);
 		System.out.println(intRep);
-		return intRep == 1;
+		return intRep != 1;
 	}
 }
