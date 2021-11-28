@@ -1,13 +1,15 @@
 package draw;
 
-import java.awt.*;
-import java.awt.event.*;
-
 import javax.swing.*;
+import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 
 public class SettingsGUI extends JFrame implements WindowListener {
 	private static final long serialVersionUID = -5209828332008414779L;
-	
+
 	Event event = Main.event;
 	JButton reSetButton = new JButton("重置");
 	JButton reSetButton1 = new JButton("");
@@ -18,7 +20,7 @@ public class SettingsGUI extends JFrame implements WindowListener {
 
 	public SettingsGUI() {
 		super("设置");
-		this.setBounds(Main.drawGUI.getBounds().x, Main.drawGUI.getBounds().y ,440 , 460);
+		this.setBounds(Main.drawGUI.getBounds().x, Main.drawGUI.getBounds().y, 440, 460);
 		this.setResizable(false);
 		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		this.setVisible(true);
@@ -33,7 +35,7 @@ public class SettingsGUI extends JFrame implements WindowListener {
 		reSetButton.setActionCommand("reset");
 		reSetButton.addActionListener(event);
 		reSetButton.setBounds(10, 10, 200, 50);
-		reSetButton.setFont(new Font("Dialog",1,20));
+		reSetButton.setFont(new Font("Dialog", 1, 20));
 		jp.add(reSetButton);
 		reSetButton1.setActionCommand("reset1");
 		reSetButton1.addActionListener(event);
@@ -46,7 +48,7 @@ public class SettingsGUI extends JFrame implements WindowListener {
 		jCheckBox.setActionCommand("checkbox");
 		jCheckBox.addItemListener(Main.event);
 		jCheckBox.setBounds(10, 70, 200, 50);
-		jCheckBox.setFont(new Font("Dialog",1,18));
+		jCheckBox.setFont(new Font("Dialog", 1, 18));
 		jp.add(jCheckBox);
 		textField.setActionCommand("reset3");
 		textField.addKeyListener(new KeyListener() {
@@ -67,20 +69,20 @@ public class SettingsGUI extends JFrame implements WindowListener {
 		});
 		textField.setBounds(220, 70, 200, 50);
 		jp.add(textField);
-		about.setBounds(10,80,400, 400);
-		about.setFont(new Font("Dialog",1,20));
+		about.setBounds(10, 80, 400, 400);
+		about.setFont(new Font("Dialog", 1, 20));
 		about.setText("<html>关于：<br>刘家瑞 github@SnowNF<br>刘家祥 github@37385<br>邮箱3374353308@qq.com<br>邮箱3186856156@qq.com<br>license:LGPL v2.1<br>项目地址：github.com/37385/drawnum</html> ");
 		jp.add(about);
 		return jp;
 	}
 
-	private void checkColor(){
+	private void checkColor() {
 		Integer i = Str2RGB(textField.getText());
-		if(i != null){
+		if (i != null) {
 			Main.drawGUI.setTheme(new Color(i));
 			Main.config.themeColor = i;
 			textField.setForeground(Color.BLACK);
-		}else
+		} else
 			textField.setForeground(Color.RED);
 	}
 
@@ -119,7 +121,7 @@ public class SettingsGUI extends JFrame implements WindowListener {
 
 	}
 
-	private String RGB2Str(int i){
+	private String RGB2Str(int i) {
 		Color color = new Color(i);
 		String red = Integer.toHexString(color.getRed());
 		String green = Integer.toHexString(color.getGreen());
@@ -136,12 +138,12 @@ public class SettingsGUI extends JFrame implements WindowListener {
 		return "#" + red + green + blue;
 	}
 
-	private Integer Str2RGB(String argb){
+	private Integer Str2RGB(String argb) {
 		if (argb.startsWith("#")) {
 			argb = argb.replace("#", "");
 		}
 
-		if(argb.length() != 8 && argb.length() != 6 || argb.replaceAll("\\d+","").replaceAll("[a-fA-F]","").length() != 0){
+		if (argb.length() != 8 && argb.length() != 6 || argb.replaceAll("\\d+", "").replaceAll("[a-fA-F]", "").length() != 0) {
 			return null;
 		}
 
@@ -159,6 +161,6 @@ public class SettingsGUI extends JFrame implements WindowListener {
 			blue = Integer.parseInt(argb.substring(4, 6), 16);
 		}
 
-		return new Color(red , green ,blue , alpha).getRGB();
+		return new Color(red, green, blue, alpha).getRGB();
 	}
 }
