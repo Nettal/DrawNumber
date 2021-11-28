@@ -23,8 +23,8 @@ public class DrawGUI extends JFrame {
 
     public DrawGUI() {
         super(Main.list == null ?
-                String.format("抽号:[%d,%d]  @Version 1.2.1", Main.config.minValue, Main.config.maxValue) :
-                String.format("抽号:列表模式,共%d个 @Version 1.2.1", Main.list.length));
+                String.format("抽号:[%d,%d]  @Version 1.3.0", Main.config.minValue, Main.config.maxValue) :
+                String.format("抽号:列表模式,共%d个 @Version 1.3.0", Main.list.length));
         jScrollPane = new JScrollPane(Main.jList);
         posX = Main.config.shape.x;
         posY = Main.config.shape.y;
@@ -53,6 +53,11 @@ public class DrawGUI extends JFrame {
                     }
                 });
         this.setTheme(new Color(Main.config.themeColor));
+        if (!(Main.config.repeatable || Main.config.selectedList.size() == 0)) {
+            this.setJScrollPaneContent(Main.config.selectedList.toArray(new String[0]));//array_list转换成字符串组
+            this.setText(Main.config.selectedList.get(0).substring
+                    (Main.config.selectedList.get(0).indexOf(":") + 1), false);
+        }
     }
 
     public void setTheme(Color color) {
@@ -119,7 +124,7 @@ public class DrawGUI extends JFrame {
     }
 
     public void clear_list() {
-        Main.event.selectedList = new ArrayList<>();
+        Main.config.selectedList = new ArrayList<>();
         Main.Current_jList = new JList<>();
     }
 
@@ -139,8 +144,8 @@ public class DrawGUI extends JFrame {
                 jLabel.setText("新一轮!");
                 jLabel.setForeground(colorInversion());
                 count = 0;
+                Main.loadNum(Main.list); //Main.loadNum()放在前面为了防止clear_list()创建的新的Main.config.selectedList被覆盖
                 clear_list();
-                Main.loadNum(Main.list);
             }
         } else {
             jLabel.setText(value);

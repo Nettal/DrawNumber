@@ -2,6 +2,7 @@ package draw;
 
 import java.awt.*;
 import java.io.*;
+import java.util.ArrayList;
 
 public class ObjectLoader {
 	File file = null;
@@ -31,6 +32,7 @@ public class ObjectLoader {
 					tempConfig.repeatable = Options.repeatable();
 					tempConfig.array = null;
 					tempConfig.saveUnusedList = true;
+					tempConfig.selectedList = new ArrayList<>();
 					Main.isMessageOnTop = true;
 					tempConfig.shape = new Rectangle(100, 100, 600, 450);
 					saveConfig(tempConfig);
@@ -58,6 +60,8 @@ public class ObjectLoader {
 				objectInputStream.close();
 				fileInputStream.close();
 				System.out.println("ObjectLoader: Loaded config!");
+				if (loadConfig.selectedList == null)
+					loadConfig.selectedList = new ArrayList<>();
 				return loadConfig;
 			} catch (Exception e) {
 				System.err.println("ObjectLoader: Fail to load config at:" + PATH);

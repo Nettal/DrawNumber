@@ -14,7 +14,6 @@ public class Event implements ActionListener, WindowListener, WindowStateListene
     SettingsGUI settingsGUI;
     public ListTitleThread listTitleThread;
 
-    public ArrayList<String> selectedList = new ArrayList<>();
     ArrayList<String> selectedList4Rep = new ArrayList<>();
 
     public Event() {
@@ -53,13 +52,13 @@ public class Event implements ActionListener, WindowListener, WindowStateListene
             getInteger = Main.array_Rep.getStr_without_index_Rep();
             if (!(getInteger == null)) {
                 selectedList4Rep.add(0, (selectedList4Rep.size() + 1) + ":" + getInteger);
-                Main.drawGUI.setJScrollPaneContent(selectedList4Rep.toArray(new String[selectedList4Rep.size()]));//array_list转换成字符串组
+                Main.drawGUI.setJScrollPaneContent(selectedList4Rep.toArray(new String[0]));//array_list转换成字符串组
             }
         } else {
             getInteger = Main.array.getStr_without_index();
             if (!(getInteger == null)) {
-                selectedList.add(0, (selectedList.size() + 1) + ":" + getInteger);
-                Main.drawGUI.setJScrollPaneContent(selectedList.toArray(new String[selectedList.size()]));//array_list转换成字符串组
+                Main.config.selectedList.add(0, (Main.config.selectedList.size() + 1) + ":" + getInteger);
+                Main.drawGUI.setJScrollPaneContent(Main.config.selectedList.toArray(new String[0]));//array_list转换成字符串组
             }
         }
         Main.drawGUI.setText(getInteger, false);
@@ -103,7 +102,10 @@ public class Event implements ActionListener, WindowListener, WindowStateListene
             Main.config.shape = Main.drawGUI.getBounds();
         }
         if (!Main.config.saveUnusedList)
-            Main.config.array = null;
+            Main.config.array = null;//如果不保存未抽取的，就定义其为 NULL
+        if (Main.drawGUI.count == 1 || !Main.config.saveUnusedList ||
+                Main.config.selectedList.size() == (Main.config.maxValue - Main.config.minValue + 1))
+            Main.config.selectedList = null;//防止“已抽完”时，保存已抽取的列表
         new ObjectLoader("DATA").saveConfig(Main.config);
     }
 
@@ -167,9 +169,9 @@ public class Event implements ActionListener, WindowListener, WindowStateListene
             Main.drawGUI.setText(cutStr.substring(cutStr.indexOf(":") + 1), true);
 
         } else {
-            if (selectedList.isEmpty()) return;
+            if (Main.config.selectedList.isEmpty()) return;
             //截取字符串
-            String cutStr = selectedList.get(index);
+            String cutStr = Main.config.selectedList.get(index);
             Main.drawGUI.setText(cutStr.substring(cutStr.indexOf(":") + 1), true);
         }
     }

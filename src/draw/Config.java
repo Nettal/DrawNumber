@@ -2,6 +2,7 @@ package draw;
 
 import java.awt.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class Config implements Serializable {
 
@@ -18,4 +19,5 @@ public class Config implements Serializable {
     public int themeColor = Integer.MAX_VALUE;
     public Array array = null;
     public boolean saveUnusedList = true;
+    ArrayList<String> selectedList = null;
 }

@@ -148,7 +148,8 @@ public class SettingsGUI extends JFrame implements WindowListener {
 			argb = argb.replace("#", "");
 		}
 
-		if (argb.length() != 8 && argb.length() != 6 || argb.replaceAll("\\d+", "").replaceAll("[a-fA-F]", "").length() != 0) {
+		if (argb.length() != 8 && argb.length() != 6 ||
+				argb.replaceAll("\\d+", "").replaceAll("[a-fA-F]", "").length() != 0) {
 			return null;
 		}
 
