@@ -205,6 +205,9 @@ public class Event implements ActionListener, WindowListener, WindowStateListene
             } catch (InterruptedException interruptedException) {
                 System.out.println(interruptedException);
             }
+            if (Main.list == null && Main.config.repeatable) {
+                return;//跳过重复的纯数字
+            }
 
             int i = 0;
             while (true) {
@@ -213,7 +216,7 @@ public class Event implements ActionListener, WindowListener, WindowStateListene
                 } catch (InterruptedException interruptedException) {
                     System.out.println(interruptedException);
                 }
-                if (getCurrentList().size() > 6 && !Main.config.repeatable) {
+                if (getCurrentList().size() > 6 && Main.list == null) {
                     continue;
                 }
                 StringBuilder buffer = new StringBuilder();

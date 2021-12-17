@@ -5,10 +5,12 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
+import java.io.Serial;
 import java.util.ArrayList;
 
 public class DrawGUI extends JFrame {
 
+    @Serial
     private static final long serialVersionUID = -8854186460449111662L;
     public Color color;
     public JLabel jLabel = new JLabel("");
