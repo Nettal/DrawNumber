@@ -4,15 +4,15 @@ import javax.swing.*;
 import java.awt.*;
 
 public class Utilities {
-
-    public static void showException(Exception e) {
-        JOptionPane.showMessageDialog(null, "程序错误：" + exception2String(e), "抽号", JOptionPane.ERROR_MESSAGE);
+    public static void showThrowable(Throwable t, boolean detailedInfo) {
+        JOptionPane.showMessageDialog(null, "程序错误："
+                + (detailedInfo ? throwable2String(t) : t), "抽号", JOptionPane.ERROR_MESSAGE);
     }
 
-    public static String exception2String(Exception e) {
+    public static String throwable2String(Throwable t) {
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(e.toString());
-        for (StackTraceElement h : e.getStackTrace()) {
+        stringBuilder.append(t.toString());
+        for (StackTraceElement h : t.getStackTrace()) {
             stringBuilder.append("\n");
             stringBuilder.append("    at ");
             stringBuilder.append(h);
@@ -20,8 +20,11 @@ public class Utilities {
         return stringBuilder.toString();
     }
 
-    public static String RGB2Str(int i) {
-        Color color = new Color(i);
+    public static Color getForegroundColor(Color color) {
+        return new Color(Integer.MAX_VALUE - color.getRGB());
+    }
+
+    public static String color2Str(Color color) {
         String red = Integer.toHexString(color.getRed());
         String green = Integer.toHexString(color.getGreen());
         String blue = Integer.toHexString(color.getBlue());
@@ -37,7 +40,11 @@ public class Utilities {
         return "#" + red + green + blue;
     }
 
-    public static Integer Str2RGB(String argb) {
+    public static String rgb2Str(int i) {
+        return color2Str(new Color(i));
+    }
+
+    public static Integer str2RGB(String argb) {
         if (argb.startsWith("#")) {
             argb = argb.replace("#", "");
         }

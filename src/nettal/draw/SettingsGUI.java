@@ -30,7 +30,7 @@ public class SettingsGUI extends JFrame {
         });
         jp.add(resetButton);
         /*RGB*/
-        textField = new JTextField(Utilities.RGB2Str(config.color.getRGB()));
+        textField = new JTextField(Utilities.rgb2Str(config.color.getRGB()));
         textField.setFont(new Font("Dialog", Font.BOLD, 18));
         textField.setBounds(220, 10, 200, 50);
         textField.addKeyListener(new KeyListener() {
@@ -90,7 +90,7 @@ public class SettingsGUI extends JFrame {
     }
 
     private void checkColor() {
-        Integer i = Utilities.Str2RGB(textField.getText());
+        Integer i = Utilities.str2RGB(textField.getText());
         if (i != null) {
             abstractCase.drawGUI.setColor(new Color(i));
             config.color = new Color(i);

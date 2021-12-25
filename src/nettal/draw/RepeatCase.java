@@ -16,7 +16,7 @@ public class RepeatCase extends AbstractCase {//config里存贮的list这里不�
             int size = config.maxValue - config.minValue + 1;
             String[] s = new String[size];
             for (int i = 0; i < size; i++) {
-                s[i] = String.valueOf(i + 1);
+                s[i] = String.valueOf(config.minValue + i);
             }
             drawList = new ArrayList<>(List.of(s));
         } else {
@@ -31,7 +31,8 @@ public class RepeatCase extends AbstractCase {//config里存贮的list这里不�
 
     @Override
     public void onDraw() {
-        int index = (int) (Math.abs(drawList.size() * 100 * secureRandom.nextDouble()) + 1) % drawList.size();
+        int index = (int) (Math.abs(drawList.size() * 1000 *
+                secureRandom.nextDouble() * secureRandom.nextDouble()) + 1) % drawList.size();
         String text = drawList.get(index);
         setText(text, TEXT_NORMAL);
         addJListData(text);

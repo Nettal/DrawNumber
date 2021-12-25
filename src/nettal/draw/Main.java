@@ -11,6 +11,8 @@ public class Main {
 
     public static void main(String[] args) {
         String[] list = null;
+        Config config;
+        DrawGUI drawGUI = null;
         /*Analyse args*/
         System.out.println(
                 """
@@ -24,23 +26,25 @@ public class Main {
                                Example:
                                java -jar $ThisFile.jar --list aaa;bbb;ccc;ddd;eee --dataPath ./config/Data
                         """);
-
-
-        for (int i = 0; i < args.length; i++) {
-            switch (args[i]) {
-                case "--legacy" -> {
-                    legacy.Main.main();
-                    return;
-                }
-                case "--legacyGUI" -> {
-                    draw.Main.main(args);
-                    return;
-                }
-                case "--list" -> list = args[++i].split(";");
-                case "--dataPath" -> dataPath = args[++i];
-                default -> {
+        try {
+            for (int i = 0; i < args.length; i++) {
+                switch (args[i]) {
+                    case "--legacy" -> {
+                        legacy.Main.main();
+                        return;
+                    }
+                    case "--legacyGUI" -> {
+                        draw.Main.main(args);
+                        return;
+                    }
+                    case "--list" -> list = args[++i].split(";");
+                    case "--dataPath" -> dataPath = args[++i];
+                    default -> {
+                    }
                 }
             }
+        } catch (Throwable t) {
+            Utilities.showThrowable(t, true);
         }
         /*ShowLoadingDialog*/
         JProgressBar jProgressBar = new JProgressBar();
@@ -56,18 +60,29 @@ public class Main {
         jDialog.getContentPane().add(jProgressBar);
         jDialog.setBounds(100, 100, 300, 75);
         jDialog.setVisible(true);
-        /*Load config*/
-        Config config = ObjectLoader.getConfig(dataPath);
-        /*Load GUI*/
-        DrawGUI drawGUI = new DrawGUI(config);
-        /*Load Case*/
-        if (config.repeatable) {
-            repeatCase = new RepeatCase(drawGUI, config, list);
-        } else {
-            noRepeatCase = new NoRepeatCase(drawGUI, config, list);
+        try {
+            /*Load config*/
+            config = ObjectLoader.getConfig(dataPath);
+            /*Load GUI*/
+            drawGUI = new DrawGUI(config);
+            /*Load Case*/
+            if (config.repeatable) {
+                repeatCase = new RepeatCase(drawGUI, config, list);
+            } else {
+                noRepeatCase = new NoRepeatCase(drawGUI, config, list);
+            }
+        } catch (Throwable t) {
+            new Thread(() -> {
+                Utilities.showThrowable(t, false);
+                System.exit(0);
+            }).start();
+            ObjectLoader.deleteFile(dataPath);
+            if (drawGUI != null)
+                drawGUI.setVisible(false);
+        } finally {
+            /*EndLoadingDialog*/
+            jProgressBar.setVisible(false);
+            jDialog.setVisible(false);
         }
-        /*EndLoadingDialog*/
-        jProgressBar.setVisible(false);
-        jDialog.setVisible(false);
     }
 }

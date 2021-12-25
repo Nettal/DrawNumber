@@ -32,7 +32,7 @@ public class DrawGUI extends JFrame {
         this.setColor(config.color);
         this.setBounds(config.rectangle);
         this.setGUISize(config.rectangle);
-        this.setVisible(true);
+        this.setVisible(false);//wait until AbstractCase is ok ,call at AbstractCase
         this.setFocusable(true);
         this.setAlwaysOnTop(true);
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -45,7 +45,7 @@ public class DrawGUI extends JFrame {
     }
 
     public void setColor(Color color) {
-        Color foregroundColor = new Color(Integer.MAX_VALUE - color.getRGB());
+        Color foregroundColor = Utilities.getForegroundColor(color);
         this.getContentPane().setBackground(color);
         drawButton.setBackground(color);
         drawButton.setForeground(foregroundColor);

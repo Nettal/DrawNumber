@@ -6,7 +6,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
 
-public abstract class AbstractCase implements KeyListener {
+public abstract class AbstractCase implements KeyListener, WindowListener, WindowStateListener {
     public static final int TEXT_NORMAL = 0;
     public static final int TEXT_FINISHED = 1;
     public static final int TEXT_AGAIN = 2;
@@ -20,7 +20,6 @@ public abstract class AbstractCase implements KeyListener {
     ActionListener settingListener;
     ActionListener drawListener;
     ListSelectionListener listSelectionListener;
-    OnCloseListener onCloseListener;
     java.security.SecureRandom secureRandom = new java.security.SecureRandom();
 
     public AbstractCase(DrawGUI drawGUI, Config config, String[] strings) {
@@ -28,7 +27,6 @@ public abstract class AbstractCase implements KeyListener {
         this.config = config;
         this.strings = strings;
         drawListener = e -> onDraw();
-        onCloseListener = new OnCloseListener(config, drawGUI);
         settingListener = e -> SwingUtilities.invokeLater(() -> new SettingsGUI(config, this));
         listSelectionListener = e -> {
             if (!e.getValueIsAdjusting()) {//某些情况会导致下面为null
@@ -43,6 +41,7 @@ public abstract class AbstractCase implements KeyListener {
         loadJLabel();//must load before lists load
         addListener();
         loadLists(config, strings, config.loadUnusedList);
+        drawGUI.setVisible(true);
     }
 
     public abstract void loadLists(Config config, String[] strings, boolean loadUnusedList);
@@ -96,12 +95,12 @@ public abstract class AbstractCase implements KeyListener {
 
     public void addListener() {
         drawGUI.addKeyListener(this);
+        drawGUI.addWindowListener(this);
         drawGUI.jList.addKeyListener(this);
         drawGUI.jLabel.addKeyListener(this);
+        drawGUI.addWindowStateListener(this);
         drawGUI.drawButton.addKeyListener(this);
         drawGUI.jScrollPane.addKeyListener(this);
-        drawGUI.addWindowListener(onCloseListener);
-        drawGUI.addWindowStateListener(onCloseListener);
         drawGUI.drawButton.addActionListener(drawListener);
         drawGUI.settingButton.addActionListener(settingListener);
         drawGUI.jList.addListSelectionListener(listSelectionListener);
@@ -109,12 +108,12 @@ public abstract class AbstractCase implements KeyListener {
 
     public void removeListener() {//null is available
         drawGUI.removeKeyListener(this);
+        drawGUI.removeWindowListener(this);
         drawGUI.jList.removeKeyListener(this);
         drawGUI.jLabel.removeKeyListener(this);
+        drawGUI.removeWindowStateListener(this);
         drawGUI.drawButton.removeKeyListener(this);
         drawGUI.jScrollPane.removeKeyListener(this);
-        drawGUI.removeWindowListener(onCloseListener);
-        drawGUI.removeWindowStateListener(onCloseListener);
         drawGUI.drawButton.removeActionListener(drawListener);
         drawGUI.settingButton.removeActionListener(settingListener);
         drawGUI.jList.removeListSelectionListener(listSelectionListener);
@@ -132,24 +131,12 @@ public abstract class AbstractCase implements KeyListener {
     @Override
     public void keyReleased(KeyEvent e) {
     }
-}
-
-class OnCloseListener implements WindowListener, WindowStateListener {
-    DrawGUI drawGUI;
-    Config config;
-
-    public OnCloseListener(Config config, DrawGUI drawGUI) {
-        this.config = config;
-        this.drawGUI = drawGUI;
-
-    }
-
-    int windowState = 0;
 
     @Override
     public void windowOpened(WindowEvent e) {
-
     }
+
+    int windowState = 0;
 
     @Override
     public void windowClosing(WindowEvent e) {
@@ -161,27 +148,22 @@ class OnCloseListener implements WindowListener, WindowStateListener {
 
     @Override
     public void windowClosed(WindowEvent e) {
-
     }
 
     @Override
     public void windowIconified(WindowEvent e) {
-
     }
 
     @Override
     public void windowDeiconified(WindowEvent e) {
-
     }
 
     @Override
     public void windowActivated(WindowEvent e) {
-
     }
 
     @Override
     public void windowDeactivated(WindowEvent e) {
-
     }
 
     @Override
