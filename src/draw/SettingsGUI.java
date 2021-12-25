@@ -76,8 +76,8 @@ public class SettingsGUI extends JFrame implements WindowListener {
 		jp.add(saveUnusedList);
 		about.setBounds(10, 80, 400, 400);
 		about.setFont(new Font("Dialog", 1, 20));
-		about.setText("<html>About：<br>Author:github@SnowNF<br>Author:github@37385<br>license:LGPL v2.1<br>项目地址：github.com/37385/drawnum</html> ");
-		jp.add(about);
+        about.setText("<html>About：<br>Author:github.com/SnowNF<br>Author:github.com/Nettal<br>license:LGPL v2.1<br>Source:github.com/Nettal/DrawNumber</html> ");
+        jp.add(about);
 		return jp;
 	}
 

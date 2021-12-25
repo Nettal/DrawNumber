@@ -5,13 +5,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
-import java.io.Serial;
 import java.util.ArrayList;
 
 public class DrawGUI extends JFrame {
-
-    @Serial
-    private static final long serialVersionUID = -8854186460449111662L;
     public Color color;
     public JLabel jLabel = new JLabel("");
     int posX;
@@ -25,8 +21,8 @@ public class DrawGUI extends JFrame {
 
     public DrawGUI() {
         super(Main.list == null ?
-                String.format("抽号:[%d,%d]  @Version 1.3.0", Main.config.minValue, Main.config.maxValue) :
-                String.format("抽号:列表模式,共%d个 @Version 1.3.0", Main.list.length));
+                String.format("抽号:[%d,%d]  @Version 1.3.1", Main.config.minValue, Main.config.maxValue) :
+                String.format("抽号:列表模式,共%d个 @Version 1.3.1", Main.list.length));
         jScrollPane = new JScrollPane(Main.jList);
         posX = Main.config.shape.x;
         posY = Main.config.shape.y;
@@ -51,14 +47,13 @@ public class DrawGUI extends JFrame {
         this.addComponentListener(
                 new ComponentAdapter() {
                     public void componentResized(ComponentEvent e) {
+                        System.out.println(e);
                         DrawGUI.this.setSize(DrawGUI.this.getWidth(), DrawGUI.this.getHeight());
                     }
                 });
         this.setTheme(new Color(Main.config.themeColor));
         if (!(Main.config.repeatable || Main.config.selectedList.size() == 0)) {
             this.setJScrollPaneContent(Main.config.selectedList.toArray(new String[0]));//array_list转换成字符串组
-            this.setText(Main.config.selectedList.get(0).substring
-                    (Main.config.selectedList.get(0).indexOf(":") + 1), false);
         }
     }
 
