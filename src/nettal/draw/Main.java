@@ -1,5 +1,8 @@
 package nettal.draw;
 
+import javax.swing.*;
+import java.awt.*;
+
 public class Main {
     public static final String version = "@Version 2.0.0";
     public static String dataPath = "Data_2";
@@ -40,7 +43,19 @@ public class Main {
             }
         }
         /*ShowLoadingDialog*/
-
+        JProgressBar jProgressBar = new JProgressBar();
+        jProgressBar.setIndeterminate(true);// 未知时间
+        jProgressBar.setBounds(0, 0, 300, 40);
+        jProgressBar.setStringPainted(true);//显示加载中
+        jProgressBar.setString("加载中");
+        jProgressBar.setFont(new Font("Dialog", Font.BOLD, 20));
+        JDialog jDialog = new JDialog();
+        jDialog.setTitle("抽号");
+        jDialog.setAlwaysOnTop(true);
+        jDialog.setCursor(new Cursor(Cursor.WAIT_CURSOR));
+        jDialog.getContentPane().add(jProgressBar);
+        jDialog.setBounds(100, 100, 300, 75);
+        jDialog.setVisible(true);
         /*Load config*/
         Config config = ObjectLoader.getConfig(dataPath);
         /*Load GUI*/
@@ -52,5 +67,7 @@ public class Main {
             noRepeatCase = new NoRepeatCase(drawGUI, config, list);
         }
         /*EndLoadingDialog*/
+        jProgressBar.setVisible(false);
+        jDialog.setVisible(false);
     }
 }

@@ -30,7 +30,7 @@ public class SettingsGUI extends JFrame {
         });
         jp.add(resetButton);
         /*RGB*/
-        textField = new JTextField(RGB2Str(config.color.getRGB()));
+        textField = new JTextField(Utilities.RGB2Str(config.color.getRGB()));
         textField.setFont(new Font("Dialog", Font.BOLD, 18));
         textField.setBounds(220, 10, 200, 50);
         textField.addKeyListener(new KeyListener() {
@@ -90,56 +90,12 @@ public class SettingsGUI extends JFrame {
     }
 
     private void checkColor() {
-        Integer i = Str2RGB(textField.getText());
+        Integer i = Utilities.Str2RGB(textField.getText());
         if (i != null) {
             abstractCase.drawGUI.setColor(new Color(i));
             config.color = new Color(i);
             textField.setForeground(Color.BLACK);
         } else
             textField.setForeground(Color.RED);
-    }
-
-    private String RGB2Str(int i) {
-        Color color = new Color(i);
-        String red = Integer.toHexString(color.getRed());
-        String green = Integer.toHexString(color.getGreen());
-        String blue = Integer.toHexString(color.getBlue());
-        if (red.length() == 1) {
-            red = "0" + red;
-        }
-        if (green.length() == 1) {
-            green = "0" + green;
-        }
-        if (blue.length() == 1) {
-            blue = "0" + blue;
-        }
-        return "#" + red + green + blue;
-    }
-
-    private Integer Str2RGB(String argb) {
-        if (argb.startsWith("#")) {
-            argb = argb.replace("#", "");
-        }
-
-        if (argb.length() != 8 && argb.length() != 6 ||
-                argb.replaceAll("\\d+", "").replaceAll("[a-fA-F]", "").length() != 0) {
-            return null;
-        }
-
-        int alpha, red, green, blue;
-
-        if (argb.length() == 8) {
-            alpha = Integer.parseInt(argb.substring(0, 2), 16);
-            red = Integer.parseInt(argb.substring(2, 4), 16);
-            green = Integer.parseInt(argb.substring(4, 6), 16);
-            blue = Integer.parseInt(argb.substring(6, 8), 16);
-        } else {
-            alpha = 255;
-            red = Integer.parseInt(argb.substring(0, 2), 16);
-            green = Integer.parseInt(argb.substring(2, 4), 16);
-            blue = Integer.parseInt(argb.substring(4, 6), 16);
-        }
-
-        return new Color(red, green, blue, alpha).getRGB();
     }
 }
