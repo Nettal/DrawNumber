@@ -58,11 +58,13 @@ public class Main {
         jDialog.setTitle("抽号");
         jDialog.setCursor(new Cursor(Cursor.WAIT_CURSOR));
         jDialog.getContentPane().add(jProgressBar);
-        jDialog.setBounds(100, 100, 300, 75);
+        Dimension dimensions = Toolkit.getDefaultToolkit().getScreenSize();
+        jDialog.setBounds(dimensions.width/2-150, dimensions.height/2-20, 300, 75);
         jDialog.setVisible(true);
         try {
             /*Load config*/
             config = ObjectLoader.getConfig(dataPath);
+            jDialog.setAlwaysOnTop(true);
             /*Load GUI*/
             drawGUI = new DrawGUI(config);
             /*Load Case*/
