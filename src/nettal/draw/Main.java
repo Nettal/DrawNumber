@@ -56,7 +56,6 @@ public class Main {
         jProgressBar.setFont(new Font("Dialog", Font.BOLD, 20));
         JDialog jDialog = new JDialog();
         jDialog.setTitle("抽号");
-        jDialog.setAlwaysOnTop(true);
         jDialog.setCursor(new Cursor(Cursor.WAIT_CURSOR));
         jDialog.getContentPane().add(jProgressBar);
         jDialog.setBounds(100, 100, 300, 75);
