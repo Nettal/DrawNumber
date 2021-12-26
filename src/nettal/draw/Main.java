@@ -44,6 +44,7 @@ public class Main {
                 }
             }
         } catch (Throwable t) {
+            t.printStackTrace();
             Utilities.showThrowable(t, true);
         }
         /*ShowLoadingDialog*/
@@ -72,6 +73,7 @@ public class Main {
                 noRepeatCase = new NoRepeatCase(drawGUI, config, list);
             }
         } catch (Throwable t) {
+            t.printStackTrace();
             new Thread(() -> {
                 Utilities.showThrowable(t, false);
                 System.exit(0);
