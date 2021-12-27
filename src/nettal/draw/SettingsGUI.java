@@ -4,8 +4,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 
-public class SettingsGUI extends JFrame {
+public class SettingsGUI extends JFrame implements WindowListener {
     AbstractCase abstractCase;
     JButton resetButton;
     JTextField textField;
@@ -83,6 +85,7 @@ public class SettingsGUI extends JFrame {
         jp.add(about);
         this.setBounds(config.rectangle.x, config.rectangle.y, 470, 460);
         this.setResizable(false);
+        this.addWindowListener(this);
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.setVisible(true);
         this.setAlwaysOnTop(true);
@@ -97,5 +100,34 @@ public class SettingsGUI extends JFrame {
             textField.setForeground(Color.BLACK);
         } else
             textField.setForeground(Color.RED);
+    }
+
+    @Override
+    public void windowOpened(WindowEvent e) {
+    }
+
+    @Override
+    public void windowClosing(WindowEvent e) {
+    }
+
+    @Override
+    public void windowClosed(WindowEvent e) {
+    }
+
+    @Override
+    public void windowIconified(WindowEvent e) {
+    }
+
+    @Override
+    public void windowDeiconified(WindowEvent e) {
+    }
+
+    @Override
+    public void windowActivated(WindowEvent e) {
+    }
+
+    @Override
+    public void windowDeactivated(WindowEvent e) {
+        this.dispose();
     }
 }

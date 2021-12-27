@@ -9,7 +9,6 @@ public class RepeatCase extends AbstractCase {//config里存贮的list这里不�
         super(drawGUI, config, strings);
     }
 
-
     @Override
     public void loadLists(Config config, String[] strings, boolean loadUnusedList) {
         if (strings == null) {
@@ -26,7 +25,6 @@ public class RepeatCase extends AbstractCase {//config里存贮的list这里不�
                 ? new ArrayList<>(2 * (config.maxValue - config.minValue + 1))
                 : new ArrayList<>(2 * strings.length);
         setJListData(selectedList);
-        setText("", TEXT_NORMAL);
     }
 
     @Override
@@ -40,6 +38,6 @@ public class RepeatCase extends AbstractCase {//config里存贮的list这里不�
 
     @Override
     public void loadJLabel() {
-        drawGUI.jLabel.setText("重复");
+        setText("重复", TEXT_NORMAL);
     }
 }

@@ -50,6 +50,17 @@ public abstract class AbstractCase implements KeyListener, WindowListener, Windo
 
     public abstract void loadJLabel();
 
+    public void beforeClosing() {
+        removeListener();
+    }
+
+    public void onSwitch() {
+        removeListener();//防止重复添加
+        loadJLabel();
+        addListener();
+        setJListData(selectedList);
+    }
+
     public void setText(String text, int status) {
         drawGUI.jLabel.setText(
                 switch (status) {
@@ -79,18 +90,15 @@ public abstract class AbstractCase implements KeyListener, WindowListener, Windo
         setJListData(selectedList);
     }
 
-
     public void cleanLists() {
         drawList.clear();
         selectedList.clear();
+        drawGUI.jList.setListData(new String[0]);
     }
 
     public static void switchCase(AbstractCase from, AbstractCase to) {
-        from.removeListener();
-        to.removeListener();//防止重复添加
-        to.addListener();
-        to.loadJLabel();
-        to.setJListData(to.selectedList);
+        from.beforeClosing();
+        to.onSwitch();
     }
 
     public void addListener() {
@@ -140,6 +148,7 @@ public abstract class AbstractCase implements KeyListener, WindowListener, Windo
 
     @Override
     public void windowClosing(WindowEvent e) {
+        beforeClosing();
         if (!(windowState == 6)) {
             config.rectangle = drawGUI.getBounds();
         }

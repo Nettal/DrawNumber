@@ -2,7 +2,6 @@ package nettal.draw;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -66,15 +65,25 @@ public class NoRepeatCase extends AbstractCase {
     }
 
     @Override
-    public void windowClosing(WindowEvent e) {
+    public void beforeClosing() {//ignore config.loadUnusedList
         for (MouseListener mouseListener : drawGUI.jLabel.getMouseListeners()) {
             if (mouseListener.equals(jLabelMouseListener)) {
-                config.selectedList = selectedListSaved;
-                config.unDrawList = unDrawListSaved;
+                selectedList = config.selectedList = selectedListSaved;
+                drawList = config.unDrawList = unDrawListSaved;
                 break;
             }
         }
-        super.windowClosing(e);
+        super.beforeClosing();
+    }
+
+    @Override
+    public void onSwitch() {
+        removeListener();//防止重复添加
+        loadJLabel();
+        addListener();
+        if ((config.selectedList != null && config.selectedList.size() > 0) && !config.loadUnusedList) {
+            loadLists(config, strings, false);//点此加载已抽取，使得右侧列表为空
+        } else setJListData(selectedList);
     }
 
     ArrayList<String> selectedListSaved;
@@ -101,10 +110,10 @@ public class NoRepeatCase extends AbstractCase {
             jLabelMouseListener = new MouseListener() {
                 @Override
                 public void mouseClicked(MouseEvent e) {
-                    config.selectedList = selectedListSaved;
-                    config.unDrawList = unDrawListSaved;
+                    selectedList = config.selectedList = selectedListSaved;
+                    drawList = config.unDrawList = unDrawListSaved;
                     loadLists(config, strings, !config.loadUnusedList);
-                    drawGUI.jLabel.setText("完成");
+                    setText("完成", TEXT_NORMAL);
                     drawGUI.jLabel.removeMouseListener(this);
                 }
 
@@ -124,13 +133,14 @@ public class NoRepeatCase extends AbstractCase {
                 public void mouseExited(MouseEvent e) {
                 }
             };
-        } else drawGUI.jLabel.setText("不重复");
+        } else setText("不重复", TEXT_NORMAL);
     }
 
     @Override
     public void addListener() {
         super.addListener();
-        drawGUI.jLabel.addMouseListener(jLabelMouseListener);
+        if (config.selectedList != null && config.selectedList.size() > 0)
+            drawGUI.jLabel.addMouseListener(jLabelMouseListener);//loadJLabel 的非else情况
     }
 
     @Override
