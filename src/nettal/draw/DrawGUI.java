@@ -32,7 +32,7 @@ public class DrawGUI extends JFrame {
         this.setColor(config.color);
         this.setBounds(config.rectangle);
         this.setGUISize(config.rectangle);
-        this.setVisible(false);//wait until AbstractCase is ok ,call at AbstractCase
+        this.setVisible(false);//wait until AbstractCase is finished,this will be called at AbstractCase
         this.setFocusable(true);
         this.setAlwaysOnTop(true);
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);

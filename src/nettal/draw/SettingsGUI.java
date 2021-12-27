@@ -83,7 +83,7 @@ public class SettingsGUI extends JFrame implements WindowListener {
         about.setBounds(10, 80, 400, 400);
         about.setText("<html>About：<br>Author:github.com/SnowNF<br>Author:github.com/Nettal<br>license:LGPL v2.1<br>Source:github.com/Nettal/DrawNumber</html> ");
         jp.add(about);
-        this.setBounds(config.rectangle.x, config.rectangle.y, 470, 460);
+        this.setBounds(abstractCase.drawGUI.getX(), abstractCase.drawGUI.getY(), 470, 460);
         this.setResizable(false);
         this.addWindowListener(this);
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
