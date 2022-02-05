@@ -10,7 +10,7 @@ public class RepeatCase extends AbstractCase {//config里存贮的list这里不�
     }
 
     @Override
-    public void loadLists(Config config, String[] strings, boolean loadUnusedList) {
+    public void loadLists(boolean loadUnusedList) {
         if (strings == null) {
             int size = config.maxValue - config.minValue + 1;
             String[] s = new String[size];
@@ -29,9 +29,7 @@ public class RepeatCase extends AbstractCase {//config里存贮的list这里不�
 
     @Override
     public void onDraw() {
-        int index = (int) (Math.abs(drawList.size() * 1000 *
-                secureRandom.nextDouble() * secureRandom.nextDouble()) + 1) % drawList.size();
-        String text = drawList.get(index);
+        String text = drawList.get(secureRandom.nextInt(0, drawList.size()));
         setText(text, TEXT_NORMAL);
         addJListData(text);
     }

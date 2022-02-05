@@ -6,7 +6,6 @@ import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 
 public class DrawGUI extends JFrame {
-    Config config;
     JLabel jLabel;
     JList<String> jList;
     JButton settingButton;
@@ -15,7 +14,6 @@ public class DrawGUI extends JFrame {
 
     public DrawGUI(Config config) {//initial basic layout
         super();
-        this.config = config;
         drawButton = new JButton("抽");
         settingButton = new JButton("设置");
         jLabel = new JLabel("");

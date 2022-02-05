@@ -13,7 +13,7 @@ public class NoRepeatCase extends AbstractCase {
     }
 
     @Override
-    public void loadLists(Config config, String[] strings, boolean loadUnusedList) {
+    public void loadLists(boolean loadUnusedList) {
         if (config.unDrawList != null && config.unDrawList.size() != 0 && loadUnusedList) {
             drawList = config.unDrawList;
         } else if (strings == null) {
@@ -49,14 +49,13 @@ public class NoRepeatCase extends AbstractCase {
                 case 1 -> {
                     setText("", TEXT_AGAIN);
                     cleanLists();
-                    loadLists(config, strings, false);
+                    loadLists(false);
                     count = 0;
                 }
             }
             return;
         }
-        int index = (int) (Math.abs(drawList.size() * 1000 *
-                secureRandom.nextDouble() * secureRandom.nextDouble()) + 1) % drawList.size();
+        int index = secureRandom.nextInt(0, drawList.size());
         String text = drawList.get(index);
         drawList.remove(index);
         setText(text, TEXT_NORMAL);
@@ -82,7 +81,7 @@ public class NoRepeatCase extends AbstractCase {
         loadJLabel();
         addListener();
         if ((config.selectedList != null && config.selectedList.size() > 0) && !config.loadUnusedList) {
-            loadLists(config, strings, false);//点此加载已抽取，使得右侧列表为空
+            loadLists(false);//点此加载已抽取，使得右侧列表为空
         } else setJListData(selectedList);
     }
 
@@ -112,7 +111,7 @@ public class NoRepeatCase extends AbstractCase {
                 public void mouseClicked(MouseEvent e) {
                     selectedList = config.selectedList = selectedListSaved;
                     drawList = config.unDrawList = unDrawListSaved;
-                    loadLists(config, strings, !config.loadUnusedList);
+                    loadLists(!config.loadUnusedList);
                     setText("完成", TEXT_NORMAL);
                     drawGUI.jLabel.removeMouseListener(this);
                 }

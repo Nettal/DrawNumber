@@ -12,15 +12,15 @@ public abstract class AbstractCase implements KeyListener, WindowListener, Windo
     public static final int TEXT_AGAIN = 2;
     public static final int TEXT_SELECTED = 5;
 
-    DrawGUI drawGUI;
-    Config config;
-    String[] strings;
+    final DrawGUI drawGUI;
+    final Config config;
+    final String[] strings;
     ArrayList<String> drawList;//将要抽取的
     ArrayList<String> selectedList;//已经选取的
-    ActionListener settingListener;
-    ActionListener drawListener;
-    ListSelectionListener listSelectionListener;
-    java.security.SecureRandom secureRandom = new java.security.SecureRandom();
+    private final ActionListener settingListener;
+    private final ActionListener drawListener;
+    private final ListSelectionListener listSelectionListener;
+    final java.security.SecureRandom secureRandom = new java.security.SecureRandom();
 
     public AbstractCase(DrawGUI drawGUI, Config config, String[] strings) {
         this.drawGUI = drawGUI;
@@ -40,11 +40,11 @@ public abstract class AbstractCase implements KeyListener, WindowListener, Windo
                 : String.format("抽号:列表模式,共%d个 " + Main.version, strings.length));
         loadJLabel();//must load before lists load
         addListener();
-        loadLists(config, strings, config.loadUnusedList);
+        loadLists(config.loadUnusedList);
         drawGUI.setVisible(true);
     }
 
-    public abstract void loadLists(Config config, String[] strings, boolean loadUnusedList);
+    public abstract void loadLists(boolean loadUnusedList);
 
     public abstract void onDraw();
 
