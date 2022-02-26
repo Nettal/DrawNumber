@@ -14,7 +14,7 @@ public class NoRepeatCase extends AbstractCase {
 
     @Override
     public void loadLists(boolean loadUnusedList) {
-        if (config.unDrawList != null && config.unDrawList.size() != 0 && loadUnusedList) {
+        if (config.unDrawList != null && loadUnusedList) {
             drawList = config.unDrawList;
         } else if (strings == null) {
             int size = config.maxValue - config.minValue + 1;
@@ -43,6 +43,7 @@ public class NoRepeatCase extends AbstractCase {
 
     @Override
     public void onDraw() {
+        drawGUI.jLabel.removeMouseListener(jLabelMouseListener);
         if (drawList.size() == 0) {
             switch (count++) {
                 case 0 -> setText("", TEXT_FINISHED);
@@ -60,7 +61,6 @@ public class NoRepeatCase extends AbstractCase {
         drawList.remove(index);
         setText(text, TEXT_NORMAL);
         addJListData(text);
-        drawGUI.jLabel.removeMouseListener(jLabelMouseListener);
     }
 
     @Override
@@ -102,7 +102,7 @@ public class NoRepeatCase extends AbstractCase {
                             "</head>\n" +
                             "<body>\n" +
                             "<p style=\"color:" +
-                            Utilities.color2Str(Utilities.getForegroundColor(config.color)) +
+                            Utilities.color2Hex(Utilities.getForegroundColor(config.color)) +
                             (config.loadUnusedList ? "\">点此清空已抽取</p>\n" : "\">点此加载已抽取</p>\n") +
                             "</body>\n" +
                             " </html>");

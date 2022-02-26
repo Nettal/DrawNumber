@@ -24,7 +24,7 @@ public class Utilities {
         return new Color(Integer.MAX_VALUE - color.getRGB());
     }
 
-    public static String color2Str(Color color) {
+    public static String color2Hex(Color color) {
         String red = Integer.toHexString(color.getRed());
         String green = Integer.toHexString(color.getGreen());
         String blue = Integer.toHexString(color.getBlue());
@@ -40,11 +40,11 @@ public class Utilities {
         return "#" + red + green + blue;
     }
 
-    public static String rgb2Str(int i) {
-        return color2Str(new Color(i));
+    public static String rgb2Hex(int i) {
+        return color2Hex(new Color(i));
     }
 
-    public static Integer str2RGB(String argb) {
+    public static Integer hex2RGB(String argb) {
         if (argb.startsWith("#")) {
             argb = argb.replace("#", "");
         }
